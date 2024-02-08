@@ -9,5 +9,13 @@
 
 .navitem{
     text-decoration: none;
+}
 
+.footer{
+    background-color: rgb(8, 8, 66);
+}
+.footer_menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }

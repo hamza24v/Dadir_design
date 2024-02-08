@@ -1,10 +1,12 @@
 import './App.css';
+import './output.css';
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home';
 import Galleries from './pages/Galleries';
 import Services from './pages/Services';
 import Blog from './pages/Blog';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
           <Route path='/galleries' element={<Galleries />} />
           <Route path='/blog' element={<Blog />} />
         </Routes>
+        <Footer/>
     </div>
   );
 }
