@@ -1,4 +1,4 @@
-# Dadir Design Website
+# Dadir Design
 
 ## Introduction
 This repository contains the code for the Dadir Design website, a professional handyman service company. Our goal is to help our friend transition from relying on a third-party service for website management to a self-maintained system, reducing monthly costs and increasing direct control over the content and features.
