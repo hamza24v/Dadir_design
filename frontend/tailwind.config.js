@@ -6,6 +6,9 @@ module.exports = {
       backgroundImage: {
         'furniture-pattern': "url('./assets/whitebackground.webp')",
       },
+      colors: {
+        brand: '#f6bf09'
+      }
     },
   },
   plugins: [],
