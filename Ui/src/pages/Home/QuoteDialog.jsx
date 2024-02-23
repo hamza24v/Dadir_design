@@ -15,8 +15,7 @@ const validationSchema = Yup.object({
 });
 
 function QuoteDialog({ handleClose, open }) {
-    
-  // Initial values for Formik
+
   const initialValues = {
     fullName: '',
     phoneNumber: '',
@@ -27,7 +26,7 @@ function QuoteDialog({ handleClose, open }) {
     message: '',
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, {  setSubmitting }) => {
     console.log("submitted values: ", values)
     setSubmitting(false);
     handleClose();
@@ -35,28 +34,28 @@ function QuoteDialog({ handleClose, open }) {
 
   return (
     <>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle className='flex justify-center bg-orange-200' id="form-dialog-title">
+      <Dialog className='w-200' open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle className='flex justify-center bg-blue-300' id="form-dialog-title">
           <h2 className='text-3xl'>Send a text</h2>
         </DialogTitle>
         <DialogContent>
           <Formik
             initialValues={initialValues}
-            validationSchema={validationSchema}
             onSubmit={handleSubmit}
+            validationSchema={validationSchema}
             className='mt-20'
           >
             {({ values, handleChange, handleBlur, errors, touched, setFieldValue }) => (
-              <Form>
-                <Field as={TextField} label="Full name" name="fullName" error={touched.fullName && !!errors.fullName} helperText={touched.fullName && errors.fullName} />
-                <br />
-                <Field as={TextField} label="Phone number" name="phoneNumber" error={touched.phoneNumber && !!errors.phoneNumber} helperText={touched.phoneNumber && errors.phoneNumber} />
-                <br />
-                <Field as={TextField} label="Email" name="email" error={touched.email && !!errors.email} helperText={touched.email && errors.email} />
-                <br />
-                <Field as={TextField} label="Address" name="address" error={touched.address && !!errors.address} helperText={touched.address && errors.address} />
-                <br />
-                <Field as={TextField} label="Preferred date of service" name="dateOfService" type="date" InputLabelProps={{ shrink: true }} error={touched.dateOfService && !!errors.dateOfService} helperText={touched.dateOfService && errors.dateOfService} />
+              <Form className='flex flex-col'>
+                <div className='py-4 flex flex-row space-x-5'>
+                  <Field as={TextField} className='mr-3 flex-1' label="Full name" name="fullName" error={touched.fullName && !!errors.fullName} helperText={touched.fullName && errors.fullName} />
+                  <Field as={TextField} className='flex-1' label="Phone number" name="phoneNumber" error={touched.phoneNumber && !!errors.phoneNumber} helperText={touched.phoneNumber && errors.phoneNumber} />
+                </div>
+                <div className='pb-5 flex flex-row space-x-5'>
+                  <Field as={TextField} className='mr-3 flex-1' label="Email" name="email" error={touched.email && !!errors.email} helperText={touched.email && errors.email} />
+                  <Field as={TextField} className='flex-1' label="Address" name="address" error={touched.address && !!errors.address} helperText={touched.address && errors.address} />
+                </div>
+                <Field className='ml-5 max-w-60' as={TextField} label="Preferred date of service" name="dateOfService" type="date" InputLabelProps={{ shrink: true }} error={touched.dateOfService && !!errors.dateOfService} helperText={touched.dateOfService && errors.dateOfService} />
                 <br />
                 <div>Services</div>
                 <FormControlLabel
@@ -76,7 +75,7 @@ function QuoteDialog({ handleClose, open }) {
                   label="Other"
                 />
                 <br />
-                <Field as={TextField} label="How can we help?" name="message" multiline rows={4} error={touched.message && !!errors.message} helperText={touched.message && errors.message} />
+                <Field as={TextField} label="How can we help?" name="message" multiline rows={4}  error={touched.message && !!errors.message} helperText={touched.message && errors.message}/>
                 <br />
                 <Button type="submit" color="primary" variant="contained">
                   Send

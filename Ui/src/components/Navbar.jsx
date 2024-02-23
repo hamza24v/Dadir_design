@@ -1,67 +1,61 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-
-const getNavLinkClass = (isActive) =>
-    isActive
-        ? 'py-2 text-gray-800 font-dark hover:text-blue-600 transition duration-300 active'
-        : 'py-2 text-gray-800 font-dark hover:text-blue-600 transition duration-300';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const menuItems = ['Home', 'Services', 'Galleries', 'Blog'];
 
 const Navbar = () => {
     const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
-
+  
     const toggleMobileMenu = () => {
-        setIsMobileMenuVisible(!isMobileMenuVisible);
+      setIsMobileMenuVisible(!isMobileMenuVisible);
     };
+  
     return (
-        <nav className='bg-orange-200 shadow fixed top-0 w-full'>
-            <div className='max-w-6xl mx-auto px-4'>
-                <div className='flex justify-between items-center py-6'>
-                    {/* Website Logo */}
-                    <NavLink
-                        to="/"
-                        className={({ isActive }) => getNavLinkClass(isActive)}
-                    >
-                        Dadir Design
-                    </NavLink>
-                    {/* Primary Navbar items */}
-                    <div className='hidden sm:flex items-center space-x-4'>
-                        {menuItems.map((menu, idx) => (
-                            <NavLink
-                                key={idx}
-                                to={"/" + (menu === 'Home' ? '' : menu.toLowerCase())}
-                                className={({ isActive }) => getNavLinkClass(isActive)}
-                            >
-                                {menu}
-                            </NavLink>
-                        ))}
-                    </div>
-                    {/* Mobile menu button */}
-                    <div className='sm:hidden'>
-                        <button onClick={toggleMobileMenu} className='hover:text-blue-600'>
-                            Menu
-                        </button>
-                    </div>
-                </div>
+      <nav className='bg-blue-300 shadow fixed top-0 w-full z-10'>
+        <div className='max-w-6xl mx-auto px-4'>
+          <div className='flex justify-between items-center py-4'>
+            <NavLink to="/" className='text-xl font-bold text-gray-900'>Dadir Design</NavLink>
+            
+            {/* Desktop Menu */}
+            <div className='hidden md:flex items-center space-x-1'>
+              {menuItems.map((menu, idx) => (
+                <NavLink
+                  key={idx}
+                  to={"/" + (menu === 'Home' ? '' : menu.toLowerCase())}
+                  className='py-2 px-4 text-gray-900 hover:text-blue-200 transition duration-300'
+                >
+                  {menu}
+                </NavLink>
+              ))}
             </div>
-            {/* Mobile menu */}
-            <div className={`${isMobileMenuVisible ? '' : 'hidden'} mobile-menu`}>
-                <ul>
-                    {menuItems.map((menu, idx) => (
-                        <li key={idx}>
-                            <NavLink
-                                to={"/" + (menu === 'Home' ? '' : menu.toLowerCase())}
-                                className={({ isActive }) => getNavLinkClass(isActive)}
-                            >
-                                {menu}
-                            </NavLink>
-                        </li>
-                    ))}
-                </ul>
+  
+            {/* Mobile Menu Button */}
+            <div className='md:hidden'>
+              <MenuIcon onClick={toggleMobileMenu} className='hover:text-blue-600'/>
             </div>
-        </nav>
+          </div>
+        </div>
+  
+        {/* Mobile Menu */}
+        <div className={`${isMobileMenuVisible ? 'block' : 'hidden'} md:hidden`}>
+          <ul className="flex flex-col items-center">
+            {menuItems.map((menu, idx) => (
+              <li key={idx} className='py-2'>
+                <NavLink
+                  to={"/" + (menu === 'Home' ? '' : menu.toLowerCase())}
+                  className='text-gray-900 hover:text-blue-200 transition duration-300'
+                  onClick={() => setIsMobileMenuVisible(false)}
+                >
+                  {menu}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
     );
-};
+  };
+  
 
 export default Navbar;
