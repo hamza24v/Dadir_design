@@ -33,6 +33,11 @@ function Footer() {
                 ))}
             </div>
         </div>
+        <footer className="p-4 ">
+            <div className="justify-between items-center">
+                <div>Copyright © 2024 Dadir Designs</div>
+            </div>
+        </footer>
     </div>
   );
 }
