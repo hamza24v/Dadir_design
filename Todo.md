@@ -1,6 +1,7 @@
 # Front end:
- - add hover effect to nav items
- - fix mui useContext error
+ - add keyboard up animation on service click, keyboarddownicon is redundant
+ - force required message if one service not clicked. 
+ - import thumbtack api for reviews
 
 
 # backend: 

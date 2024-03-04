@@ -1,12 +1,16 @@
-export const furniture_assembly = `
-  Say goodbye to the battle of wills against a pile of planks, screws, and what looks like instructions from a long-lost language. <span class="text-indigo-600">🛠️✨ Welcome to the land of hassle-free furniture assembly!</span> Imagine this: no more squinting at hieroglyphic manuals or playing hide and seek with 'allegedly included' screws.
-  Enter our <span class="font-bold">Furniture Assembly service</span> - your new superhero in a tool belt. We're the maestros of the allen wrench, the wizards with the screwdriver, and we turn a box of baffling bits into your dream piece with the swish of our magical tools. 🎩✨
-  <br><br>
-  Gone are the days of DIY disasters and near-tear experiences. Our pros are like a GPS for those confusing assembly steps; they navigate the road of rods and rails with the finesse of a seasoned explorer. They're here to safeguard your manicure and your sanity - because why turn your living room into a testing ground for patience and thumb strength?
-  Booking with us? It's like pressing the fast-forward button. 🔄 
-  <br><br>
-  Sit back, sip on your favorite beverage, and watch the magic unfold. Before you know it, voilà, your chic coffee table stands proud, and that bookshelf? It's practically strutting its shelves in style.
-  Why wrestle with wrenches when you can jazz up your day with the perfect symphony of efficiency and expertise? When it's time to bring in the next piece of furniture flair to your home, just holler. We'll bring the tools, the talent, and the triumphant high-fives when we cross the finish line together. 👏
+export const indoor_furniture_assembly = `
+Transform your space effortlessly with Dadir Designs' premier Furniture Assembly service. Say goodbye to the puzzles of parts and instructions. 
+Our skilled team brings your vision to life, ensuring each piece is assembled with precision and care. Dive into the luxury of your newly furnished home, minus the hassle. 
+Choose Dadir Designs for a seamless, stress-free experience that lets you relax and revel in the beauty of your space. Embrace the ease of expert assembly—your dream decor awaits.
+`;
 
-  and step into a world where your furniture assembles as if by magic - all you have to do is a point, and poof, it's done!
+export const outdoor_furniture_assembly = `
+Transform your space effortlessly with Dadir Designs' premier Furniture Assembly service. Say goodbye to the puzzles of parts and instructions. 
+Our skilled team brings your vision to life, ensuring each piece is assembled with precision and care. Dive into the luxury of your newly furnished home, minus the hassle. 
+Choose Dadir Designs for a seamless, stress-free experience that lets you relax and revel in the beauty of your space. Embrace the ease of expert assembly—your dream decor awaits.
+`;
+
+export const furniture_delivery = `Elevate your home with Dadir Designs' seamless furniture delivery service! Embark on your décor journey worry-free, knowing we'll usher your chosen treasures right to your doorstep. 
+With our expert care, your floors and walls remain pristine, while our skilled team navigates the cumbersome and heavy, transforming delivery day into a breezy event. 
+Beyond mere transport, our white-glove assembly service means no baffling manuals or missing screws—just sit back and revel in the beauty of your new furnishings. Trust in Dadir Designs to not just deliver furniture but deliver peace of mind—your haven of relaxation awaits!
 `;

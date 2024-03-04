@@ -13,9 +13,9 @@ function Home() {
             <div className="flex justify-center py-5">
                 <Button
                     variant="contained"
-                    color="primary"
                     onClick={() => setShowQuoteForm(true)}
-                    className="mt-5" // Add margin-top as needed
+                    color='salmon'
+                    className="mt-5 "
                 >
                     Send us a text
                 </Button>

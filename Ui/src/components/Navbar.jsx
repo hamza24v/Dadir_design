@@ -2,40 +2,29 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import DropDown from './DropDown';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import dadir_design from '../assets/dadir_design.png'
 
 const menuItems = ['Home', 'Services', 'Galleries', 'About'];
 const serviceMenu = [
-  {label: 'Indoor/Outdoor Furniture Assembly',path:'/indoor-outdoor-assembly'},
-  {label: 'Furniture Delivery', path: '/furniture-delivery'}
+  {label: 'Indoor Furniture Assembly',path:'/indoor-furniture-assembly'},
+  {label: 'Furniture Delivery', path: '/furniture-delivery'},
+  {label: 'Outdoor Furniture Assembly',path:'/outdoor-furniture-assembly'}
 ]
 
 const Navbar = () => {
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
-  const [isServiceMenuVisible, setIsServiceMenuVisible] = useState(false)
-  const [anchor, setAnchor] = useState(null);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuVisible(!isMobileMenuVisible);
   };
 
-  const toggleServiceMenu = (event) => {
-    if(!isServiceMenuVisible){
-      setAnchor(event.currentTarget);
-    }
-    else {
-      setAnchor(null)
-    }
-    setIsServiceMenuVisible(!isServiceMenuVisible)
-  }
 
   return (
-    <nav className='bg-blue-300 shadow fixed top-0 w-full z-10'>
+    <nav className='bg-orange-600 shadow fixed top-0 w-full z-10'>
       <div className='max-w-6xl mx-auto px-4'>
         <div className='flex justify-between items-center py-4'>
           <NavLink to="/" className='text-3xl font-serif  font-bold text-gray-900 hover:text-blue-100'>
-            Dadir Designs
+                <img className='w-20' src={dadir_design} alt='dadir design' />            
           </NavLink>
           {/* Desktop Menu */}
           <div className={`hidden sm:hidden md:flex lg:flex xl:flex 2xl:flex items-center`}>

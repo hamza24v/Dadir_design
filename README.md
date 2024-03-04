@@ -18,7 +18,7 @@ The project aims to:
 - **Services Page:** Detailed information about the services offered.
 - **Gallery:** Visual portfolio showcasing previous work.
 - **Reviews:** Customer testimonials and feedback.
-- **Blog:** Helpful articles, tips, and updates from the handyman industry.
+- **About:** Helpful articles, tips, and updates from the handyman industry.
 - **Contact Form:** A simple way for potential clients to get in touch and request quotes.
 
 ## Tech Stack

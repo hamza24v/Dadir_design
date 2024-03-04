@@ -3,7 +3,9 @@ import './output.css';
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home/Home';
 import Galleries from './pages/Galleries';
-import Services from './pages/Services';
+import IndoorAssembly from './pages/Services/IndoorAssembly';
+import OutdoorAssembly from './pages/Services/OutdoorAssembly';
+import Delivery from './pages/Services/Delivery';
 import About from './pages/About';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -14,7 +16,9 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/Services' element={<Services />} />
+          <Route path='/indoor-furniture-assembly' element={<IndoorAssembly />} />
+          <Route path='/outdoor-furniture-assembly' element={<OutdoorAssembly />} />
+          <Route path='/Delivery' element={<Delivery />} />
           <Route path='/Galleries' element={<Galleries />} />
           <Route path='/About' element={<About />} />
         </Routes>
