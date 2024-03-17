@@ -9,7 +9,7 @@ const DropDown = ({ title, items }) => {
   const dropdownRef = useRef(null);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
-
+  //TODO: Add click away listener instead
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -37,12 +37,12 @@ const DropDown = ({ title, items }) => {
         {isOpen && <KeyboardArrowUpIcon onClick={toggleDropdown} />}
       </div>
       {isOpen && (
-        <div className="absolute left-0 mt-2 py-2 bg-blue-300 shadow-xl">
+        <div className="absolute left-0 mt-2 py-2 bg-orange-600 shadow-xl w-40px">
           {items.map((item, index) => (
             <NavLink
               key={index}
               to={item.path}
-              className="block px-4 py-2 text-sm hover:bg-blue-400"
+              className="block px-4 py-2 text-sm hover:bg-orange-400"
               onClick={() => setIsOpen(false)}
             >
               {item.label}

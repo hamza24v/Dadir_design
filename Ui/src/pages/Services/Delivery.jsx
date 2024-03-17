@@ -1,19 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { furniture_delivery } from '../../constants/services_text';
 import { Button } from '@mui/material';
+import QuoteDialog from '../Home/QuoteDialog';
 
 function Delivery() {
-    
+    const [showQouteForm, setShowQuoteForm] = useState(false)
+
     return (
-        <div className={`grid place-items-center mt-20 container mx-auto px-4 py-8 text-large`} id="Assembly">
+        <div className='grid place-items-center mt-20 container mx-auto px-4 py-8 text-large' id="Assembly">
             <h2 className="text-3xl font-bold text-center mb-6">Furniture Delivery</h2>
             <p 
-                className="mb-5 text-base md:text-lg leading-relaxed text-gray-700 text-large text-left">
+                className="mb-5 w-1/2 text-base md:text-lg leading-relaxed text-gray-700 text-large text-center">
                 {furniture_delivery}
             </p>
-            <Button variant='contained'>
-                    Book your Furniture Delivery service now
+            <Button
+                variant="contained"
+                onClick={() => setShowQuoteForm(true)}
+                color='salmon'
+                className="mt-5"
+            >
+                Send us a text
             </Button>
+            <QuoteDialog open={showQouteForm} handleClose={() => setShowQuoteForm(false)} />
         </div>
     );
 }

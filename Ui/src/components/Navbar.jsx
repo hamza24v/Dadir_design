@@ -47,7 +47,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className='sm:flex md:hidden lg:hidden xl:hidden 2xl:hidden'>
-            <MenuIcon onClick={toggleMobileMenu} className='hover:text-blue-600' />
+            <MenuIcon onClick={toggleMobileMenu} color='salmon' className='hover:text-blue-600' />
           </div>
         </div>
       </div>
