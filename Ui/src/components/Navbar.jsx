@@ -13,14 +13,19 @@ const serviceMenu = [
 
 const Navbar = () => {
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuVisible(!isMobileMenuVisible);
   };
 
 
+  const toggleDropdown = () => setIsOpen(!isOpen);
+  const onClose = () => setIsOpen(false)
+
+
   return (
-    <nav className='bg-orange-400 shadow fixed top-0 w-full z-10'>
+    <nav className='bg-orange-300 shadow fixed top-0 w-full z-10'>
       <div className='max-w-6xl mx-auto px-4'>
         <div className='flex justify-between items-center py-4'>
           <NavLink to="/" className='text-3xl font-serif  font-bold text-gray-900 hover:text-blue-100'>
@@ -31,7 +36,7 @@ const Navbar = () => {
             {menuItems.map((menu, idx) => (
               <>
                 {menu === 'Services' ?
-                  <DropDown title="Services" items={serviceMenu} />
+                  <DropDown key={idx} title="Services" items={serviceMenu} toggleDropdown={toggleDropdown} onClose={onClose} open={isOpen}/>
                   :
                   <NavLink
                     key={idx}

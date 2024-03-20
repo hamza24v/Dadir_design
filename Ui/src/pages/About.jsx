@@ -3,14 +3,14 @@ import dadiro from '../assets/dadiro.jpg'
 function About() {
   return (
     <div className='grid place-items-center mt-20 container mx-auto px-4 py-8 text-large' id="Assembly">
-      <h2 className="text-3xl font-bold text-center mb-6">About</h2>
+      <h2 className="text-4xl font-semi-bold text-center mb-6">About</h2>
       <div className='flex items-center space-x-4 px-4 py-4'>
         <div className='grid justify-items-center w-1/2'>
-        <img src={dadiro} alt='dadiro' className="w-3/4" />
+        <img src={dadiro} alt='dadiro' className="w-7/12" />
         </div>
 
         <div className='w-1/2'>
-        <p className='text-base md:text-2xl leading-relaxed text-gray-700 text-large'>
+        <p className='text-base md:text-xl leading-loose text-gray-700 text-large'>
           At Dadir Design, we're not just about furniture—we're about the stories that unfold in your living spaces. 
           Our journey began with a vision to offer personalized furniture assembly and craftsmanship that turns houses into homes. 
           Rooted in tradition yet innovating for today, we're proud to serve Columbus and its surrounding communities with the same 

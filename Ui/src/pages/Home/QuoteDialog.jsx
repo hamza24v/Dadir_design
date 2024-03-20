@@ -14,7 +14,7 @@ const validationSchema = Yup.object({
   message: Yup.string().required('Required'),
 });
 
-function QuoteDialog({ handleClose, open }) {
+function QuoteDialog({ handleClose, open, title, submit_text }) {
 
   const initialValues = {
     fullName: '',
@@ -35,8 +35,8 @@ function QuoteDialog({ handleClose, open }) {
   return (
     <>
       <Dialog className='w-200' open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle className='flex justify-center bg-orange-600' id="form-dialog-title">
-          <h2 className='text-3xl'>Send a text</h2>
+        <DialogTitle className='flex justify-center bg-orange-400' id="form-dialog-title">
+          <h2 className='text-3xl'>Book an appointment</h2>
         </DialogTitle>
         <DialogContent>
           <Formik
@@ -77,8 +77,8 @@ function QuoteDialog({ handleClose, open }) {
                 <br />
                 <Field as={TextField} label="How can we help?" name="message" multiline rows={4}  error={touched.message && !!errors.message} helperText={touched.message && errors.message}/>
                 <br />
-                <Button type="submit" color="primary" variant="contained">
-                  Send
+                <Button type="submit" color="salmon" variant="contained">
+                  Book
                 </Button>
               </Form>
             )}

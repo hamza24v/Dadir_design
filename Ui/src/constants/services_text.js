@@ -1,16 +1,28 @@
 export const indoor_furniture_assembly = `
-Transform your space effortlessly with Dadir Designs' premier Furniture Assembly service. Say goodbye to the puzzles of parts and instructions. 
-Our skilled team brings your vision to life, ensuring each piece is assembled with precision and care. Dive into the luxury of your newly furnished home, minus the hassle. 
-Choose Dadir Designs for a seamless, stress-free experience that lets you relax and revel in the beauty of your space. Embrace the ease of expert assembly—your dream decor awaits.
-`;
+Experience a seamless transition into luxury with Dadir Design's premier Indoor Furniture Assembly service. 
+Effortlessly elevate your interiors as our expert team assembles your dream furniture flawlessly.`
 
 export const outdoor_furniture_assembly = `
-Transform your space effortlessly with Dadir Designs' premier Furniture Assembly service. Say goodbye to the puzzles of parts and instructions. 
-Our skilled team brings your vision to life, ensuring each piece is assembled with precision and care. Dive into the luxury of your newly furnished home, minus the hassle. 
-Choose Dadir Designs for a seamless, stress-free experience that lets you relax and revel in the beauty of your space. Embrace the ease of expert assembly—your dream decor awaits.
+Reimagine your outdoor spaces with Dadir Design's specialized Outdoor Furniture Assembly service. 
+We turn your garden and patio dreams into reality with precision and care.
 `;
 
-export const furniture_delivery = `Elevate your home with Dadir Designs' seamless furniture delivery service! Embark on your décor journey worry-free, knowing we'll usher your chosen treasures right to your doorstep. 
-With our expert care, your floors and walls remain pristine, while our skilled team navigates the cumbersome and heavy, transforming delivery day into a breezy event. 
-Beyond mere transport, our white-glove assembly service means no baffling manuals or missing screws—just sit back and revel in the beauty of your new furnishings. Trust in Dadir Designs to not just deliver furniture but deliver peace of mind—your haven of relaxation awaits!
+export const furniture_delivery = `
+Entrust your new furnishings to the swift and secure Furniture Delivery service of Dadir Design.
+We promise punctual and careful handling to bring your selected pieces directly to your doorstep.
 `;
+
+export const services = [
+    {
+      title: 'Indoor Furniture Assembly',
+      description: indoor_furniture_assembly
+    },
+    {
+      title: 'Furniture Delivery',
+      description: furniture_delivery
+    },
+    {
+      title: 'Outdoor Furniture Assembly',
+      description: outdoor_furniture_assembly
+    },
+  ];

@@ -8,7 +8,7 @@ function OutdoorAssembly() {
 
     return (
         <div className='grid place-items-center mt-20 container mx-auto px-4 py-8 text-large'>
-            <h2 className="text-3xl font-bold text-center mb-6">Outdoor Furniture Assembly</h2>
+            <h2 className="text-4xl font-semi-bold text-center mb-6">Outdoor Furniture Assembly</h2>
             <div
                 className="mb-5 w-1/2 text-base md:text-lg leading-relaxed text-gray-700 text-large text-center">
                 {outdoor_furniture_assembly}
@@ -19,7 +19,7 @@ function OutdoorAssembly() {
                     onClick={() => setShowQuoteForm(true)}
                     color='salmon'
                     className="mt-5 ">
-                    Book your Outdoor Furniture Assembly service now
+                    Book an appointment
                 </Button>
             </div>
             <QuoteDialog open={showQouteForm} handleClose={() => setShowQuoteForm(false)} />

@@ -6,3 +6,33 @@
 body {
     background-color: #f5f5f5;
 }
+
+@layer utilities {
+    .rotate-0 {
+        --transform-rotate: 0deg;
+    }
+
+    .rotate-180 {
+        --transform-rotate: 180deg;
+    }
+}
+
+.expanded {
+    height: auto;
+    /* or you can give a specific height */
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+/* Make sure you set a max-height for expanded and collapsed states */
+.transition-max-height {
+    max-height: 0;
+    /* When collapsed */
+}
+
+.transition-max-height.max-h-96 {
+    max-height: 24rem;
+    /* When expanded, adjust as necessary */
+}
