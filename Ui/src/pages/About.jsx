@@ -3,7 +3,7 @@ import dadiro from '../assets/dadiro.jpg'
 function About() {
   return (
     <div className='grid place-items-center mt-20 container mx-auto px-4 py-8 text-large' id="Assembly">
-      <h2 className="text-4xl font-semi-bold text-center mb-6">About</h2>
+      <h2 className="text-4xl font-semibold text-center mb-6">About</h2>
       <div className='flex items-center space-x-4 px-4 py-4'>
         <div className='grid justify-items-center w-1/2'>
         <img src={dadiro} alt='dadiro' className="w-7/12" />

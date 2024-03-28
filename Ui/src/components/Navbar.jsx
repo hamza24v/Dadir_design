@@ -14,7 +14,12 @@ const serviceMenu = [
 const Navbar = () => {
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
+  const scrollToTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+};
   const toggleMobileMenu = () => {
     setIsMobileMenuVisible(!isMobileMenuVisible);
   };
@@ -28,7 +33,7 @@ const Navbar = () => {
     <nav className='bg-orange-300 shadow fixed top-0 w-full z-10'>
       <div className='max-w-6xl mx-auto px-4'>
         <div className='flex justify-between items-center py-4'>
-          <NavLink to="/" className='text-3xl font-serif  font-bold text-gray-900 hover:text-blue-100'>
+          <NavLink to="/" onClick={scrollToTop} className='text-3xl font-serif  font-bold text-gray-900 hover:text-blue-100'>
                 <img className='w-20' src={dadir_design} alt='dadir design' />            
           </NavLink>
           {/* Desktop Menu */}
@@ -40,6 +45,7 @@ const Navbar = () => {
                   :
                   <NavLink
                     key={idx}
+                    onClick={scrollToTop}
                     to={"/" + (menu === 'Home' ? '' : menu)}
                     className='py-2 px-4 text-gray-900 font-semibold hover:text-blue-100 transition duration-300'
                   >
@@ -68,6 +74,7 @@ const Navbar = () => {
                   :
                   <NavLink
                     key={idx}
+                    onClick={scrollToTop}
                     to={"/" + (menu === 'Home' ? '' : menu)}
                     className='py-2 px-4 text-gray-900 font-semibold hover:text-blue-100 transition duration-300'
                   >
