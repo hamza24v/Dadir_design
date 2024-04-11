@@ -41,7 +41,7 @@ const TestimonialCard = ({ text, author, date, rating }) => {
     };
 
     return (
-        <div className=" flex flex-col h-auto items-center justify-center p-4 mb-9 bg-white shadow-lg rounded-lg transition-all duration-300 ease-in-out transform">
+        <div className=" flex flex-col border border-gray-300 p-4 mb-9 hover:shadow-xl bg-white shadow-lg rounded-lg transition-all duration-300 ease-in-out transform">
             <div className='w-full flex justify-between'>
                 <div className="flex flex-row items-center justify-between">
                     <AvatarIcon name={author} />

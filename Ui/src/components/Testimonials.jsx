@@ -9,7 +9,8 @@ import TestimonialCard from './TestimonialCard';
 function Testimonials() {
 
   return (
-    <div className='max-w-[1000px] h-auto'>
+    <div className='my-5 max-w-[1000px] h-auto'>
+      <h2 className='text-3xl font-semibold text-center mb-4'>What Our Clients Say</h2>
       <Swiper
         slidesPerView={3}
         spaceBetween={30}

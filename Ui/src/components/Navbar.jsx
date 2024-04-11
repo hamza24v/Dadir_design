@@ -37,7 +37,7 @@ const Navbar = () => {
             <img className='w-20' src={dadir_design} alt='dadir design' />
           </NavLink>
           {/* Desktop Menu */}
-          <div className={`hidden sm:hidden md:flex lg:flex xl:flex 2xl:flex items-center`}>
+          <div className={`hidden sm:hidden md:flex items-center`}>
             {menuItems.map((menu, idx) => (
               <>
                 {menu === 'Services' ?
@@ -63,7 +63,7 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className='sm:flex md:hidden lg:hidden xl:hidden 2xl:hidden'>
+          <div className='sm:flex md:hidden'>
             <MenuIcon onClick={toggleMobileMenu} className='hover:text-blue-200' />
           </div>
         </div>

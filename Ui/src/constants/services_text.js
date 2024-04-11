@@ -1,15 +1,25 @@
 export const indoor_furniture_assembly = `
-Experience a seamless transition into luxury with Dadir Design's premier Indoor Furniture Assembly service. 
-Effortlessly elevate your interiors as our expert team assembles your dream furniture flawlessly.`
+Get your indoor furniture set up quickly and\
+correctly with Dadir Design's professional \
+assembly service. Our experienced team ensures\
+your furniture is built to last, making your home\
+look great without any hassle.`
 
 export const outdoor_furniture_assembly = `
-Reimagine your outdoor spaces with Dadir Design's specialized Outdoor Furniture Assembly service. 
-We turn your garden and patio dreams into reality with precision and care.
+Make the most of your outdoor space with Dadir\
+Design's assembly service. Our specialists are\
+ready to put together your patio or garden\
+furniture, ensuring every piece is ready for\
+you to enjoy in the great outdoors.
 `;
 
 export const furniture_delivery = `
-Entrust your new furnishings to the swift and secure Furniture Delivery service of Dadir Design.
-We promise punctual and careful handling to bring your selected pieces directly to your doorstep.
+Rely on Dadir Design for secure and \
+on-time delivery of your furniture \
+purchases. Our dedicated \
+team handles your items with care,    \
+providing a swift service that brings\
+ your new furniture straight to your home.
 `;
 
 export const services = [

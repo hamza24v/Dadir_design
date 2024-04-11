@@ -10,13 +10,13 @@ function Home() {
     const [showQouteForm, setShowQuoteForm] = useState(false)
 
     return (
-        <div className="grid place-items-center mt-20 container px-4 py-8 text-large">
-            <div className='m-20 flex flex-col items-center'>
+        <div className="w-auto flex flex-col justify-items-center mt-20 container px-4 py-8 text-large">
+            <div className='mb-20 flex flex-col items-center'>
                 <h2 className="text-4xl font-semibold text-center mb-8">Dadir Design</h2>
-                <div
+                <p
                     className="mb-9 w-1/3 text-center md:text-lg leading-relaxed text-gray-700 text-large">
                     {intro_se}
-                </div>
+                </p>
                 <Button
                     variant="contained"
                     onClick={() => setShowQuoteForm(true)}
@@ -27,27 +27,12 @@ function Home() {
                 </Button>
                 <QuoteDialog open={showQouteForm} handleClose={() => setShowQuoteForm(false)} />
             </div>
-            <div className='my-10'>
-                <h2 className='text-3xl font-semibold text-center'>Services We Offer</h2>
-                <Services />
+            <Services />
+            <div className='my-10 flex justify-center'>
+            <Testimonials />
             </div>
+            <GalleriesSneakPeek />
 
-            {/* Testimonials Section */}
-            <div className='my-5 h-auto'>
-                <h2 className='text-3xl font-semibold text-center mb-4'>What Our Clients Say</h2>
-                <Testimonials />
-            </div>
-
-            <div className='my-10'>
-                <h2 className='text-3xl font-semibold text-center mb-4'>Galleries</h2>
-                <GalleriesSneakPeek />
-            </div>
-
-            {/* Contact Section */}
-            <div className='my-10'>
-                <h2 className='text-3xl font-semibold text-center mb-4'>Get In Touch</h2>
-                {/* Contact form or details */}
-            </div>
         </div>
     );
 }
