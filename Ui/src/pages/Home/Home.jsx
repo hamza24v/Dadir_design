@@ -33,7 +33,7 @@ function Home() {
             </div>
 
             {/* Testimonials Section */}
-            <div className='my-5'>
+            <div className='my-5 h-auto'>
                 <h2 className='text-3xl font-semibold text-center mb-4'>What Our Clients Say</h2>
                 <Testimonials />
             </div>

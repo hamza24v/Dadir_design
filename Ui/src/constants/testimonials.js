@@ -20,4 +20,11 @@ export const testimonials = [
         date: "Jan 23, 2024",
         rating: 5
     },
+    {
+        id: 4,
+        text: "This is the second time I hired this gentleman. If I get more furniture that needs assembly I will hire him again. He arrives on time. He is nice, knowledgeable and gets to work right away. He brings his own tools and cleans up afterwards.",
+        author: "Marlo P.",
+        date: "June 13, 2022",
+        rating: 5
+    },
 ];

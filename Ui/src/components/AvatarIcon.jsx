@@ -15,7 +15,7 @@ const AvatarIcon = ({ name }) => {
   const firstLetter = name.charAt(0).toUpperCase();
 
   return (
-    <div className={`w-20 h-20 flex items-center justify-center rounded-full ${getRandomColor()} text-[43px] text-white font-bold`}>
+    <div className={`w-10 h-10 flex items-center justify-center rounded-full ${getRandomColor()} text-[30px] text-white font-bold`}>
       {firstLetter}
     </div>
   );
