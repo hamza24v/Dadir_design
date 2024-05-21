@@ -4,7 +4,7 @@ import dadir_design from '../assets/dadir_design.png'
 
 function Footer() {
     return (
-        <footer className=" w-auto text-center bg-orange-300 text-gray-800">
+        <footer className="w-auto text-center bg-orange-300 text-gray-800">
             <div className=" px-4 py-4 flex flex-col md:flex-row justify-even md:justify-between">
                 <div className='flex flex-row px-4 h-25'>
                     <div>

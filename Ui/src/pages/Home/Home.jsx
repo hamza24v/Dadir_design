@@ -10,7 +10,7 @@ function Home() {
     const [showQouteForm, setShowQuoteForm] = useState(false)
 
     return (
-        <div className="w-auto flex flex-col justify-items-center mt-20 container px-4 py-8 text-large">
+        <div className="w-auto flex flex-col justify-center m-auto mt-20 container px-4 py-8 text-large">
             <div className='mb-20 flex flex-col items-center'>
                 <h2 className="text-4xl font-semibold text-center mb-8">Dadir Design</h2>
                 <p

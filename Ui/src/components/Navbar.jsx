@@ -4,16 +4,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import DropDown from './DropDown';
 import dadir_design from '../assets/dadir_design.png'
 
-const menuItems = ['Home', 'Services', 'Galleries', 'About'];
-const serviceMenu = [
-  { label: 'Indoor Furniture Assembly', path: '/indoor-furniture-assembly' },
-  { label: 'Furniture Delivery', path: '/furniture-delivery' },
-  { label: 'Outdoor Furniture Assembly', path: '/outdoor-furniture-assembly' }
-]
+const menuItems = ['Home', 'Shop', 'Galleries', 'About'];
+
 
 const Navbar = () => {
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -23,10 +19,6 @@ const Navbar = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuVisible(!isMobileMenuVisible);
   };
-
-
-  const toggleDropdown = () => setIsOpen(!isOpen);
-  const onClose = () => setIsOpen(false)
 
 
   return (
@@ -39,26 +31,14 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className={`hidden sm:hidden md:flex items-center`}>
             {menuItems.map((menu, idx) => (
-              <>
-                {menu === 'Services' ?
-                  <DropDown
-                    key={`service-${idx}`}
-                    title="Services"
-                    items={serviceMenu}
-                    toggleDropdown={toggleDropdown}
-                    onClose={onClose}
-                    open={isOpen} />
-                  :
-                  <NavLink
-                    key={idx}
-                    onClick={scrollToTop}
-                    to={"/" + (menu === 'Home' ? '' : menu)}
-                    className='py-2 px-4 text-gray-900 font-semibold hover:text-blue-100 transition duration-300'
-                  >
-                    {menu === 'About' ? menu + ' Us' : menu}
-                  </NavLink>
-                }
-              </>
+                <NavLink
+                  key={idx}
+                  onClick={scrollToTop}
+                  to={"/" + (menu === 'Home' ? '' : menu)}
+                  className='py-2 px-4 text-gray-900 font-semibold hover:text-blue-100 transition duration-300'
+                >
+                  {menu === 'About' ? menu + ' Us' : menu}
+                </NavLink>
             ))}
           </div>
 

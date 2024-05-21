@@ -9,10 +9,12 @@ import Delivery from './pages/Services/Delivery';
 import About from './pages/About';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Shop from './pages/Shop/Shop'
+import { CartProvider } from './pages/Shop/CartContext'
 
 function App() {
   return (
-    <div className="App">
+    <CartProvider>
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
@@ -21,9 +23,10 @@ function App() {
           <Route path='/furniture-delivery' element={<Delivery />} />
           <Route path='/Galleries' element={<Galleries />} />
           <Route path='/About' element={<About />} />
+          <Route path='/Shop' element={<Shop />} />
         </Routes>
         <Footer />
-    </div>
+    </CartProvider>
   );
 }
 
