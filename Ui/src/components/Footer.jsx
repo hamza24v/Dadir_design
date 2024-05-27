@@ -4,7 +4,7 @@ import dadir_design from '../assets/dadir_design.png'
 
 function Footer() {
     return (
-        <footer className="w-auto text-center bg-orange-300 text-gray-800">
+        <footer className="w-auto text-center bg-blue-100 text-gray-800">
             <div className=" px-4 py-4 flex flex-col md:flex-row justify-even md:justify-between">
                 <div className='flex flex-row px-4 h-25'>
                     <div>
@@ -40,8 +40,8 @@ function Footer() {
                     </div>
                 </div>
             </div>
-            <hr className=" border-t border-orange-400" />
-            <div className="bg-orange-300 text-center p-4 text-sm">
+            <hr className=" border-t border-blue-300" />
+            <div className="bg-blue-100 text-center p-4 text-sm">
                 © All Rights Reserved - Dadir Design
             </div>
         </footer>

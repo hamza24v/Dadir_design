@@ -14,7 +14,7 @@ function Home() {
             <div className='mb-20 flex flex-col items-center'>
                 <h2 className="text-4xl font-semibold text-center mb-8">Dadir Design</h2>
                 <p
-                    className="mb-9 w-1/3 text-center md:text-lg leading-relaxed text-gray-700 text-large">
+                    className="mb-9 lg:w-1/3 md:w-full text-center text-lg leading-relaxed text-gray-700 text-large">
                     {intro_se}
                 </p>
                 <Button

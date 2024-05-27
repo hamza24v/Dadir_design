@@ -22,7 +22,7 @@ const Navbar = () => {
 
 
   return (
-    <nav className='bg-orange-300 shadow fixed top-0 w-full z-10'>
+    <nav className='bg-blue-200 shadow fixed top-0 w-full z-10'>
       <div className='max-w-6xl mx-auto px-4'>
         <div className='flex justify-between items-center py-4'>
           <NavLink to="/" onClick={scrollToTop} className='text-3xl font-serif  font-bold text-gray-900 hover:text-blue-100'>
@@ -35,7 +35,7 @@ const Navbar = () => {
                   key={idx}
                   onClick={scrollToTop}
                   to={"/" + (menu === 'Home' ? '' : menu)}
-                  className='py-2 px-4 text-gray-900 font-semibold hover:text-blue-100 transition duration-300'
+                  className='py-2 px-4 text-gray-900 font-semibold hover:text-white transition duration-300'
                 >
                   {menu === 'About' ? menu + ' Us' : menu}
                 </NavLink>
@@ -44,7 +44,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className='sm:flex md:hidden'>
-            <MenuIcon onClick={toggleMobileMenu} className='hover:text-blue-200' />
+            <MenuIcon onClick={toggleMobileMenu} className='hover:text-white' />
           </div>
         </div>
       </div>

@@ -35,7 +35,7 @@ function QuoteDialog({ handleClose, open, title, submit_text }) {
   return (
     <>
       <Dialog className='w-200' open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle className='flex justify-center bg-orange-300' id="form-dialog-title">
+        <DialogTitle className='flex justify-center bg-blue-200' id="form-dialog-title">
           <h2 className='text-3xl'>Book an appointment</h2>
         </DialogTitle>
         <DialogContent>

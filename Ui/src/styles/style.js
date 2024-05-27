@@ -9,7 +9,7 @@ theme = createTheme(theme, {
     palette: {
       salmon: theme.palette.augmentColor({
         color: {
-          main: 'rgb(251, 211, 141)',
+          main: '#ADD8E6',
         },
         name: 'salmon',
       }),

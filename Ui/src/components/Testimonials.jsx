@@ -9,7 +9,7 @@ import TestimonialCard from './TestimonialCard';
 function Testimonials() {
 
   return (
-    <div className='my-5 max-w-[1000px] h-auto'>
+    <div className='my-5 w-full h-auto'>
       <h2 className='text-3xl font-semibold text-center mb-4'>What Our Clients Say</h2>
       <Swiper
         slidesPerView={3}
@@ -19,7 +19,7 @@ function Testimonials() {
         }}
         modules={[Pagination]}
         breakpoints={{
-          640: {
+          0: {
             slidesPerView: 1,
             spaceBetween: 20,
           },
