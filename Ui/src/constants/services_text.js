@@ -1,15 +1,15 @@
 export const indoor_furniture_assembly = `
-Get your indoor furniture set up quickly and\
+Get your indoor furniture set up quickly and \
 correctly with Dadir Design's professional \
 assembly service. Our experienced team ensures\
-your furniture is built to last, making your home\
+your furniture is built to last, making your home \
 look great without any hassle.`
 
 export const outdoor_furniture_assembly = `
-Make the most of your outdoor space with Dadir\
-Design's assembly service. Our specialists are\
-ready to put together your patio or garden\
-furniture, ensuring every piece is ready for\
+Make the most of your outdoor space with Dadir \
+Design's assembly service. Our specialists are \
+ready to put together your patio or garden \
+furniture, ensuring every piece is ready for \
 you to enjoy in the great outdoors.
 `;
 

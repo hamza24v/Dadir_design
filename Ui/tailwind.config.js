@@ -10,8 +10,17 @@ export default {
         'furniture-pattern': "url('./assets/whitebackground.webp')",
       },
       colors: {
-        brand: '#f6bf09'
-      }
+        brand: '#f6bf09',
+        'light-grey': '#F6F9FC',
+        'dark-terminal': '#0A2540',
+        'accent': '#635BFF',
+      },
+      borderRadius: {
+        'radius': '3px',
+      },
+      fontFamily: {
+        'raleway': ['Raleway', 'sans-serif'],
+      },
     },
   },
   plugins: [],

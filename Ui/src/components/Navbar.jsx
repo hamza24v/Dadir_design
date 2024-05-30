@@ -4,6 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import DropDown from './DropDown'; // Assuming DropDown is correctly implemented
 import dadir_design from '../assets/dadir_design.png';
 import { ClickAwayListener } from '@mui/material';
+import { scrollToTop } from '../utils';
 
 const menuItems = ['Home', 'Shop', 'Galleries', 'About'];
 
@@ -13,10 +14,7 @@ const Navbar = () => {
   const handleNavClick = (event) => {
     setOpen((prev) => !prev);
     event.stopPropagation(); // Prevents click from immediately triggering ClickAway
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    scrollToTop()
   };
 
   const toggleMenu = () => {
