@@ -4,7 +4,8 @@ const createPaymentIntent = async (amount) => {
     try {
         const paymentIntent = await stripe.paymentIntents.create({
             amount,
-            current: 'usd'
+            currency: 'usd',
+            automatic_payment_methods: { enabled: true },
         })
         return paymentIntent
     } catch (error) {

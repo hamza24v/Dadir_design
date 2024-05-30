@@ -11,21 +11,25 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Shop from './pages/Shop/Shop'
 import { CartProvider } from './pages/Shop/CartContext'
+import Payment from './pages/Shop/Payment';
+import Completion from './pages/Shop/Completion';
 
 function App() {
   return (
     <CartProvider>
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/indoor-furniture-assembly' element={<IndoorAssembly />} />
-          <Route path='/outdoor-furniture-assembly' element={<OutdoorAssembly />} />
-          <Route path='/furniture-delivery' element={<Delivery />} />
-          <Route path='/Galleries' element={<Galleries />} />
-          <Route path='/About' element={<About />} />
-          <Route path='/Shop' element={<Shop />} />
-        </Routes>
-        <Footer />
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/indoor-furniture-assembly' element={<IndoorAssembly />} />
+        <Route path='/outdoor-furniture-assembly' element={<OutdoorAssembly />} />
+        <Route path='/furniture-delivery' element={<Delivery />} />
+        <Route path='/Galleries' element={<Galleries />} />
+        <Route path='/About' element={<About />} />
+        <Route path='/Shop' element={<Shop />} />
+        <Route path='/Checkout' element={<Payment />} />
+        <Route path='/completion' element={<Completion />} />
+      </Routes>
+      <Footer />
     </CartProvider>
   );
 }

@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
 const servicesRouter = require('./routes/services');
@@ -5,8 +6,7 @@ const photoRoute = require('./routes/photos')
 const app = express();
 const fetchPhotos = require('./services/googlePhotos')
 const stripe = require('./routes/stripe')
-
-require('dotenv').config()
+const cors = require('cors')
 
 // async function connect(){
 //     try{ 
@@ -17,8 +17,8 @@ require('dotenv').config()
 //     }
 // }
 
-connect()
-
+// connect()
+app.use(cors())
 // app.use('/gallery', photoRoute);
 app.use('/stripe', stripe)
 
