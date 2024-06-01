@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import DropDown from './DropDown'; // Assuming DropDown is correctly implemented
 import dadir_design from '../assets/dadir_design.png';
 import { ClickAwayListener } from '@mui/material';
 import { scrollToTop } from '../utils';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { CartContext } from '../pages/Shop/CartContext';
+import CartIcon from '../pages/Shop/CartIcon';
 
-const menuItems = ['Home', 'Shop', 'Galleries', 'About'];
+const menuItems = ['Home', 'Galleries', 'About', 'Shop', ];
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -42,6 +45,7 @@ const Navbar = () => {
                     {menu === 'About' ? menu + ' Us' : menu}
                   </NavLink>
                 ))}
+                <CartIcon />
               </div>
               {/* Mobile Menu */}
               <div className='sm:flex md:hidden'>

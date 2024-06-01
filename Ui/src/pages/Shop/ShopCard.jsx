@@ -9,7 +9,7 @@ function ShopCard({ item, addToCart }) {
       <p className="text-lg font-bold">${item.price}</p>
       <p className="text-sm text-gray-600 mb-2">{item.serviceType}</p>
       <Button size='large' variant='contained' color='salmon'
-        onClick={() => {addToCart(item)}}
+        onClick={() => {addToCart(item.id)}}
       > 
         Add to Cart
       </Button>

@@ -8,8 +8,7 @@ import { CartContext } from "./CartContext";
 function Payment() {
     const [clientSecret, setClientSecret] = useState("");
     const [stripePromise, setStripePromise] = useState(null);
-    const { cart } = useContext(CartContext)
-    const totalAmount = cart.reduce((total, item) => total + item.price, 0)
+    const { getTotalCost } = useContext(CartContext)
 
     useEffect(() => {
         fetch(`${import.meta.env.VITE_API_URL}/stripe/config`).then(async (response) => {
@@ -21,7 +20,7 @@ function Payment() {
     useEffect(() => {
         fetch(`${import.meta.env.VITE_API_URL}/stripe/create-payment-intent`, {
             method: "POST",
-            body: JSON.stringify({amount: totalAmount })
+            body: JSON.stringify({amount: getTotalCost() })
         }).then(async (result) => {
             var { clientSecret } = await result.json();
             setClientSecret(clientSecret);

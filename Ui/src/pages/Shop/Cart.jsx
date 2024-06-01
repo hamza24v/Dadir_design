@@ -1,43 +1,38 @@
 import React, { useContext } from 'react';
 import { CartContext } from './CartContext';
-import { loadStripe } from '@stripe/stripe-js';
-import { Button } from '@mui/material';
-import { NavLink } from 'react-router-dom';
 
 
 function Cart() {
-  const { cart, removeFromCart, clearCart } = useContext(CartContext);
+  const { items, removeOneFromCart, getTotalCost } = useContext(CartContext);
 
-  const totalAmount = cart.reduce((total, item) => total + item.price, 0);
-
+  console.log("items; ", items)
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-semibold mb-4">Your Cart</h2>
-      <ul>
-        {cart.map((item, index) => (
-          <li key={index} className="mb-2">
-            <div className="flex justify-between">
-              <span>{item.name}</span>
-              <span>${item.price}</span>
-              <button
-                className="ml-4 bg-red-500 text-white py-1 px-2 rounded"
-                onClick={() => removeFromCart(item.id)}
-              >
-                Remove
-              </button>
+    <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+      <ul className="p-4">
+        {items.map((item, index) => (
+          <li key={index} className="mb-2 flex justify-between items-center">
+            <div className="flex items-center">
+              <img src={item.image} alt={item.name} className="w-10 h-10 mr-2" />
+              <div>
+                <p className="text-sm font-semibold">{item.name}</p>
+                <p className="text-sm text-gray-600">{item.quantity} x ${item.price}</p>
+              </div>
             </div>
-            <div className="text-sm text-gray-600">{item.serviceType}</div>
+            <button
+              className="ml-4 bg-red-500 text-white p-1 rounded"
+              onClick={() => removeOneFromCart(item.id)}
+            >
+              x
+            </button>
           </li>
         ))}
       </ul>
-      <div className="mt-4">
-        <h3 className="text-xl">Total: ${totalAmount}</h3>
-        <NavLink to='/Checkout'>
-          <Button color='salmon' size='large' variant='contained'>
-            Proceed to Checkout
-          </Button>
-        </NavLink>
-
+      <div className="p-4 border-t border-gray-200">
+        <div className="flex justify-between font-semibold">
+          <span>Total:</span>
+          <span>${getTotalCost}</span>
+        </div>
+        <button className="mt-4 w-full bg-blue-500 text-white py-2 rounded">Checkout</button>
       </div>
     </div>
   );
