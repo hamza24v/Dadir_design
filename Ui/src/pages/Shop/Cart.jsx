@@ -9,7 +9,7 @@ function Cart() {
   return (
     <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
       <ul className="p-4">
-        {items.map((item, index) => (
+        {items?.length && items.map((item, index) => (
           <li key={index} className="mb-2 flex justify-between items-center">
             <div className="flex items-center">
               <img src={item.image} alt={item.name} className="w-10 h-10 mr-2" />

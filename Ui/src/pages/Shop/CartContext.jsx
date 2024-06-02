@@ -13,7 +13,6 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   function getProductQuantity(id) {
-    console.log("cartitems: ", cartItems)
     const quantity = cartItems.find(item => item.id === id)?.quantity;
     if (quantity === undefined) {
       return 0
@@ -23,14 +22,15 @@ export const CartProvider = ({ children }) => {
 
   function addToCart(id) {
     const quantity = getProductQuantity(id)
+
     if (quantity === 0) {
       setCartItems([...cartItems, { id: id, quantity: 1 }])
     } else {
-      setCartItems(prevItems => {
-        prevItems.map(item =>
+      setCartItems(
+        cartItems.map(item =>
           item.id === id ? { ...item, quantity: item.quantity + 1 } : item
         )
-      })
+      )
     }
   };
 
@@ -54,6 +54,7 @@ export const CartProvider = ({ children }) => {
   function getTotalCost() {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
   }
+
 
   const contextValue = {
     items: cartItems,
