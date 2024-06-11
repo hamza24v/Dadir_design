@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
 const serviceSchema = new mongoose.Schema({
-  name: {
+  category: {
+    type: String,
+    required: true
+  },
+  serviceType: {
     type: String,
     required: true
   },
@@ -9,9 +13,17 @@ const serviceSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  price: {
+  newPrice: {
     type: Number,
     required: true
+  },
+  oldPrice: {
+    type: Number,
+    required: true
+  },
+  include: {
+    type: [String],
+    required: false
   },
   image: {
     type: String,
