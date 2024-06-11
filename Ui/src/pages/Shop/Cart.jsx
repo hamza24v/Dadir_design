@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { CartContext } from './CartContext';
-
+import { TbTrash } from "react-icons/tb";
 
 function Cart() {
   const { items, removeOneFromCart, getTotalCost } = useContext(CartContext);
@@ -17,12 +17,7 @@ function Cart() {
                 <p className="text-sm text-gray-600">{item.quantity} x ${item.newprice}</p>
               </div>
             </div>
-            <button
-              className="ml-4 bg-red-500 text-white p-1 rounded"
-              onClick={() => removeOneFromCart(item.id)}
-            >
-              x
-            </button>
+            <TbTrash onClick={() => removeOneFromCart(item.id)} />
           </li>
         ))}
       </ul>
