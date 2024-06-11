@@ -28,7 +28,7 @@ export const CartProvider = ({ children }) => {
     } else {
       setCartItems(
         cartItems.map(item =>
-          item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         )
       )
     }
@@ -52,7 +52,7 @@ export const CartProvider = ({ children }) => {
   }
 
   function getTotalCost() {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+    return cartItems.reduce((total, item) => total + item.newprice * item.quantity, 0)
   }
 
 

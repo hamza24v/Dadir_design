@@ -10,10 +10,9 @@ const CartIcon = () => {
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
-
   return (
-    <div className="relative inline-block" onClick={toggleDropdown}>
-      <ShoppingCartIcon style={{ fontSize: 40 }} />
+    <div className="relative inline-block" >
+      <ShoppingCartIcon onClick={toggleDropdown} style={{ fontSize: 40 }} />
       {items?.length > 0 && (
         <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full transform translate-x-1/2 -translate-y-1/2">
           {totalQuantity}
