@@ -20,11 +20,11 @@ export const CartProvider = ({ children }) => {
     return quantity
   }
 
-  function addToCart(id) {
-    const quantity = getProductQuantity(id)
+  function addToCart(product) {
+    const quantity = getProductQuantity(product.id)
 
     if (quantity === 0) {
-      setCartItems([...cartItems, { id: id, quantity: 1 }])
+      setCartItems([...cartItems, { ...product, id: product.id, quantity: 1 }])
     } else {
       setCartItems(
         cartItems.map(item =>

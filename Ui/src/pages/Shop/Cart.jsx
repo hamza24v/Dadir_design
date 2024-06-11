@@ -5,7 +5,6 @@ import { CartContext } from './CartContext';
 function Cart() {
   const { items, removeOneFromCart, getTotalCost } = useContext(CartContext);
 
-  console.log("items; ", items)
   return (
     <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
       <ul className="p-4">
