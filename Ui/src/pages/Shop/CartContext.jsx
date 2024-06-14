@@ -28,11 +28,7 @@ export const CartProvider = ({ children }) => {
         const { newPrice, oldPrice, selectedVariation } = variation;
         setCartItems([...cartItems, { ...product, id: `${product.id}.${selectedVariation}`, quantity: 1, newPrice, oldPrice, selectedVariation }])
       } else {
-        if(product?.selectedVariation){
-
-        } else {
-          setCartItems([...cartItems, { ...product, id, quantity: 1 }])
-        }
+        setCartItems([...cartItems, { ...product, id, quantity: 1 }])
       }
     } else {
       setCartItems(
