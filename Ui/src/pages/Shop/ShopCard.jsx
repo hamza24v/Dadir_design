@@ -7,7 +7,8 @@ import InputLabel from '@mui/material/InputLabel';
 
 
 function ShopCard({ item, addToCart }) {
-  const [selectedVariation, setSelectedVariation] = useState(null);
+  const defaultVariation = item?.variations ? Object.keys(item.variations)[0] : null 
+  const [selectedVariation, setSelectedVariation] = useState(defaultVariation);
 
   const handleSelect = (e) => {
     setSelectedVariation(e.target.value)

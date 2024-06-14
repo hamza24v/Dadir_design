@@ -20,21 +20,24 @@ export const CartProvider = ({ children }) => {
     return quantity
   }
 
-  function addToCart(product, variation=null) {
-    const quantity = getProductQuantity(product.id)
-
+  function addToCart(product, variation) {
+    const id = variation ? `${product.id}.${variation.selectedVariation}` : product.id
+    const quantity = getProductQuantity(id)
     if (quantity === 0) {
       if(variation){
-        const { newPrice, oldPrice, selectedVariation, id } = variation;
-        setCartItems([...cartItems, { ...product, id: `${product.id}.${id}`, quantity: 1, newPrice, oldPrice, selectedVariation: selectedVariation }])
+        const { newPrice, oldPrice, selectedVariation } = variation;
+        setCartItems([...cartItems, { ...product, id: `${product.id}.${selectedVariation}`, quantity: 1, newPrice, oldPrice, selectedVariation }])
       } else {
-        console.log("here")
-        setCartItems([...cartItems, { ...product, id: product.id, quantity: 1 }])
+        if(product?.selectedVariation){
+
+        } else {
+          setCartItems([...cartItems, { ...product, id, quantity: 1 }])
+        }
       }
     } else {
       setCartItems(
         cartItems.map(item =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === id ? { ...item, quantity: item.quantity + 1 } : item
         )
       )
     }
