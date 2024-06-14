@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import QuoteDialog from './QuoteDialog'
 import { intro_se } from '../../constants/home_text';
 import Services from '../../components/Services';
-import GalleriesSneakPeek from '../../components/GalleriesSneakPeek';
+import Galleries from '../Galleries';
 import Testimonials from '../../components/Testimonials';
 
 function Home() {
@@ -31,7 +31,7 @@ function Home() {
             <div className='my-10 flex justify-center'>
             <Testimonials />
             </div>
-            <GalleriesSneakPeek />
+            <Galleries showPreview={true} />
 
         </div>
     );

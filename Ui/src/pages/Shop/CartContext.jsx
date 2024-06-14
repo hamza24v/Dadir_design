@@ -20,11 +20,17 @@ export const CartProvider = ({ children }) => {
     return quantity
   }
 
-  function addToCart(product) {
+  function addToCart(product, variation=null) {
     const quantity = getProductQuantity(product.id)
 
     if (quantity === 0) {
-      setCartItems([...cartItems, { ...product, id: product.id, quantity: 1 }])
+      if(variation){
+        const { newPrice, oldPrice, selectedVariation, id } = variation;
+        setCartItems([...cartItems, { ...product, id: `${product.id}.${id}`, quantity: 1, newPrice, oldPrice, selectedVariation: selectedVariation }])
+      } else {
+        console.log("here")
+        setCartItems([...cartItems, { ...product, id: product.id, quantity: 1 }])
+      }
     } else {
       setCartItems(
         cartItems.map(item =>
@@ -52,7 +58,7 @@ export const CartProvider = ({ children }) => {
   }
 
   function getTotalCost() {
-    return cartItems.reduce((total, item) => total + item.newprice * item.quantity, 0)
+    return cartItems.reduce((total, item) => total + item.newPrice * item.quantity, 0)
   }
 
 
