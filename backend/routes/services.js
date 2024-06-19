@@ -12,52 +12,47 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/addservice', async (req, res) => {
-  try {
-    const services = await Service.find()
-    let id;
-    if (services.length > 0) {
-      let last_service_array = services.slice(-1)
-      let last_service = last_service_array[0]
-      id = last_service.id + 1;
-    } else {
-      id = 1
-    }
-    const service = new Service({
-      id: id,
-      category: req.body.category,
-      description: req.body.description,
-      newPrice: req.body.newPrice,
-      oldPrice: req.body.oldPrice,
-      include: req.body.include,
-      image: req.body.image,
-      serviceType: req.body.serviceType
-    })
+  const { name, newPrice, oldPrice, variations, image, serviceType } = req.body;
 
-    await service.save()
-    console.log("Saved")
-    console.log(service)
+  try {
+    const lastService = await Service.findOne().sort({ id: -1 });
+    const newId = lastService ? lastService.id + 1 : 1; 
+
+    const newService = new Service({
+      id: newId,
+      name,
+      newPrice,
+      oldPrice,
+      variations,
+      image,
+      serviceType
+    });
+
+    await newService.save();
+
     res.json({
       success: true,
-      description: req.body.description
-    })
+      message: 'Service added successfully',
+      service: newService
+    });
   } catch (err) {
+    console.error("Error:", err);
     res.status(500).json({ message: err.message });
   }
-
-})
+});
 
 router.post('/removeservice', async (req, res) => {
-  try{
+  try {
     await Service.findOneAndDelete({ id: req.body.id })
     console.log("Removed");
     res.json({
       success: true,
-      description: req.body.description
+      name: req.body.name
     })
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-  
+
 })
 
 module.exports = router;
