@@ -14,15 +14,12 @@ function ShopCard({ item, addToCart }) {
     setSelectedVariation(e.target.value)
   }
 
-
   const oldPrice = selectedVariation ? item.variations[selectedVariation].oldPrice : item.oldPrice;
   const newPrice = selectedVariation ? item.variations[selectedVariation].newPrice : item.newPrice;
-
-  
   return (
     <div className="border p-4 rounded-lg shadow">
-      <img className="w-full h-64 object-cover mb-4" src={item.image} alt={item.description} />
-      <h3 className="text-xl mb-2">{item.description}</h3>
+      <img className="w-full h-64 object-cover mb-4" src={item.image} alt={item.name} />
+      <h3 className="text-xl mb-2">{item.name}</h3>
       <div className='flex my-1 gap-4'>
         <p className="text-lg font-semibold">${newPrice}</p>
         <p className="text-lg font-semibold text-orange-500 line-through ">${oldPrice}</p>

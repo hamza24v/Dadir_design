@@ -15,7 +15,7 @@ function Cart() {
             <div className="flex items-center">
               <img src={item.image} alt={item.category} className="w-24 h-24 mr-2" />
               <div>
-                <p className="text-sm font-semibold">{item.description}</p>
+                <p className="text-sm font-semibold">{item.name}</p>
                 {item?.selectedVariation && 
                   <p className="text-sm font-semibold">{item.selectedVariation}</p>
                 }

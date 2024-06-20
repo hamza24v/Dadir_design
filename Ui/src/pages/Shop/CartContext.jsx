@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
 export const CartContext = createContext({
   items: [],
@@ -11,6 +11,16 @@ export const CartContext = createContext({
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [allItems, setAllItems] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/services")
+      .then(async (response) => {
+        const data = await response.json()
+        console.log("response: ", data.success)
+        setAllItems(data.services)
+      })
+  }, [])
 
   function getProductQuantity(id) {
     const quantity = cartItems.find(item => item.id === id)?.quantity;
@@ -24,7 +34,7 @@ export const CartProvider = ({ children }) => {
     const id = variation ? `${product.id}.${variation.selectedVariation}` : product.id
     const quantity = getProductQuantity(id)
     if (quantity === 0) {
-      if(variation){
+      if (variation) {
         const { newPrice, oldPrice, selectedVariation } = variation;
         setCartItems([...cartItems, { ...product, id: `${product.id}.${selectedVariation}`, quantity: 1, newPrice, oldPrice, selectedVariation }])
       } else {
@@ -67,7 +77,8 @@ export const CartProvider = ({ children }) => {
     addToCart,
     removeOneFromCart,
     deleteFromCart,
-    getTotalCost
+    getTotalCost,
+    allItems
   }
 
   return (

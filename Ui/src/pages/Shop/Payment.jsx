@@ -11,16 +11,17 @@ function Payment() {
     const { getTotalCost } = useContext(CartContext)
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/stripe/config`).then(async (response) => {
-            const { publishableKey } = await response.json();
-            setStripePromise(loadStripe(publishableKey))
-        });
+        fetch(`${import.meta.env.VITE_API_URL}/stripe/config`)
+            .then(async (response) => {
+                const { publishableKey } = await response.json();
+                setStripePromise(loadStripe(publishableKey))
+            });
     }, []);
 
     useEffect(() => {
         fetch(`${import.meta.env.VITE_API_URL}/stripe/create-payment-intent`, {
             method: "POST",
-            body: JSON.stringify({amount: getTotalCost() })
+            body: JSON.stringify({ amount: getTotalCost() })
         }).then(async (result) => {
             var { clientSecret } = await result.json();
             setClientSecret(clientSecret);
