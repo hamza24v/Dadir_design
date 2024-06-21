@@ -6,6 +6,21 @@ import { Button } from '@mui/material';
 function Cart() {
   const { items, removeOneFromCart, getTotalCost } = useContext(CartContext);
 
+  const checkout = async () => {
+    await fetch('http://localhost:3000/checkout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ items: cart.items })
+    }).then((response) => {
+      return response.json()
+    }).then((response) => {
+      if(response.json()){
+        window.location.assign(response.url); // forwards user to stripe url
+      }
+    })
+  }
   return (
     <div className="overflow-auto max-h-96 absolute right-0 mt-2 w-96 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
       <p className='text-center font-semibold text-3xl'>Cart</p>
@@ -16,7 +31,7 @@ function Cart() {
               <img src={item.image} alt={item.category} className="w-24 h-24 mr-2" />
               <div>
                 <p className="text-sm font-semibold">{item.name}</p>
-                {item?.selectedVariation && 
+                {item?.selectedVariation &&
                   <p className="text-sm font-semibold">{item.selectedVariation}</p>
                 }
                 <p className="text-sm font-semibold text-gray-600">{item.quantity} x ${item.newPrice}</p>
@@ -31,9 +46,9 @@ function Cart() {
           <span>Total:</span>
           <span>${getTotalCost()}</span>
         </div>
-        <Button size='large' variant='contained' color='salmon'>
-        Checkout
-      </Button>
+        <Button size='large' variant='contained' color='salmon' onClick={checkout}>
+          Checkout
+        </Button>
       </div>
     </div>
   );

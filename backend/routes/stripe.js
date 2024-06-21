@@ -20,4 +20,26 @@ router.post('/create-payment-intent', async (req, res) => {
     }
 });
 
+router.post('/checkout', async (req, res) => {
+    const items = req.body.items;
+    let lineItems = []
+    items.forEach((item) => {
+        lineItems.push({
+            price: item.id,
+            quantity: item.quantity
+        })
+    })
+
+    const session = await Stripe.checkout.sessions.create({
+        line_items: lineItems,
+        mode: 'payment',
+        success_url: "http://localhost:3000/sucess",
+        cancel_url: "http://localhost:3000/cancel"
+    })
+
+    res.send(JSON.stringify({
+        url: session.url
+    }))
+})
+
 module.exports = router;
