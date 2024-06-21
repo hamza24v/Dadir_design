@@ -19,10 +19,14 @@ function Galleries({ showPreview }) {
         {galleries_text}
       </p>}
 
-      <div className="flex mb-10 w-full justify-center mt-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4  items-center">
+      <div className="grid grid-col mb-10 w-full justify-items-center mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4  items-center">
           {galleryData.map((item, index) => {
-            if (index < 6) return <GalleryItem key={index} item={item} />
+            if (index < 8 && showPreview) {
+               return <GalleryItem key={index} item={item} />
+            } else if (!showPreview) {
+              return <GalleryItem key={index} item={item} />
+            }
           })}
         </div>
       </div>

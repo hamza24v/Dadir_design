@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { CartContext } from './CartContext';
 import ShopCard from './ShopCard';
-import dadiro_discount from '../../assets/gallery/dadiro_discount.jpg'
+import dadiro_discount from '../../assets/dadiro_discount.jpg'
 
 function Shop() {
   const { addToCart, allItems } = useContext(CartContext);

@@ -8,6 +8,7 @@ const app = express();
 const stripe = require('./routes/stripe')
 const services = require('./routes/services')
 const upload = require('./routes/upload')
+const photos = require('./routes/photos')
 
 app.use(cors())
 app.use(express.json())
@@ -28,6 +29,7 @@ connect()
 app.use('/upload', upload)
 app.use('/stripe', stripe)
 app.use('/services', services)
+app.use('/photos', photos)
 app.use('/serviceImages', express.static('upload/serviceImages'))
 app.use('/gallery', express.static('upload/gallery'))
 
