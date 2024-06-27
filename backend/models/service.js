@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const variationSchema = new mongoose.Schema({
   oldPrice: { type: Number, required: true },
-  newPrice: { type: Number, required: true }
+  newPrice: { type: Number, required: true },
+  priceId: { type: String, required: false}
 }, { _id: false });
 
 const serviceSchema = new mongoose.Schema({
@@ -20,11 +21,15 @@ const serviceSchema = new mongoose.Schema({
   },
   newPrice: {
     type: Number,
-    required: true
+    required: false
   },
   oldPrice: {
     type: Number,
-    required: true
+    required: false
+  },
+  priceId: {
+    type: String,
+    required: false
   },
   variations: {
     type: Map,

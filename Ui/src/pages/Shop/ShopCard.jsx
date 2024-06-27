@@ -13,9 +13,9 @@ function ShopCard({ item, addToCart }) {
   const handleSelect = (e) => {
     setSelectedVariation(e.target.value)
   }
-
   const oldPrice = selectedVariation ? item.variations[selectedVariation].oldPrice : item.oldPrice;
   const newPrice = selectedVariation ? item.variations[selectedVariation].newPrice : item.newPrice;
+  const priceId = selectedVariation ? item.variations[selectedVariation].priceId : item.priceId;
   return (
     <div className="border p-4 rounded-lg shadow">
       <img className="w-full h-64 object-cover mb-4" src={item.image} alt={item.name} />
@@ -44,7 +44,7 @@ function ShopCard({ item, addToCart }) {
         }
       </div>
       <Button size='large' variant='contained' color='salmon'
-        onClick={() => { addToCart(item, selectedVariation ? {selectedVariation, newPrice, oldPrice}: null) }}
+        onClick={() => { addToCart(item, selectedVariation ? {selectedVariation, newPrice, oldPrice, priceId}: null) }}
       >
         Add to Cart
       </Button>

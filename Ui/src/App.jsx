@@ -11,7 +11,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Shop from './pages/Shop/Shop'
 import { CartProvider } from './pages/Shop/CartContext'
-import Payment from './pages/Shop/Payment';
 import Completion from './pages/Shop/Completion';
 
 function App() {
@@ -26,8 +25,7 @@ function App() {
         <Route path='/Galleries' element={<Galleries />} />
         <Route path='/About' element={<About />} />
         <Route path='/Shop' element={<Shop />} />
-        <Route path='/Checkout' element={<Payment />} />
-        <Route path='/completion' element={<Completion />} />
+        <Route path='/success' element={<Completion />} />
       </Routes>
       <Footer />
     </CartProvider>

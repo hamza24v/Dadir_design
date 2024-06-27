@@ -12,7 +12,7 @@ router.get('/', async (_, res) => {
 });
 
 router.post('/addservice', async (req, res) => {
-  const { name, newPrice, oldPrice, variations, image, serviceType } = req.body;
+  const { name, newPrice, oldPrice, variations, image, serviceType, priceId } = req.body;
 
   try {
     const lastService = await Service.findOne().sort({ id: -1 });
@@ -23,6 +23,7 @@ router.post('/addservice', async (req, res) => {
       name,
       newPrice,
       oldPrice,
+      priceId,
       variations,
       image,
       serviceType
@@ -43,9 +44,10 @@ router.post('/addservice', async (req, res) => {
 
 router.post('/addservices', async (req, res) => {
   const { shop_items } = req.body;
+  
   try {
-    const services = await Service.find()
-    const lastServiceId = services.length > 0 ? services[services.length - 1].id : 0;
+    const lastService = await Service.findOne().sort({ id: -1 }).exec();
+    const lastServiceId = lastService ? lastService.id : 0;
 
     const savePromises = shop_items.map(async (item, index) => {
       const id = lastServiceId + index + 1;
@@ -54,6 +56,7 @@ router.post('/addservices', async (req, res) => {
         name: item.name,
         newPrice: item.newPrice,
         oldPrice: item.oldPrice,
+        priceId: item.priceId,
         variations: item.variations,
         image: item.image,
         serviceType: item.serviceType
@@ -61,7 +64,6 @@ router.post('/addservices', async (req, res) => {
 
       await service.save()
       console.log("Saved")
-      console.log(service)
       return service;
 
     })
@@ -69,18 +71,24 @@ router.post('/addservices', async (req, res) => {
     const savedServices = await Promise.all(savePromises)
     res.json({
       success: true,
-      name: savedServices.map(service => service.name)
-    })
+      services: savedServices.map(service => ({
+        id: service.id,
+        name: service.name,
+        priceId: service?.priceId
+      }))
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-})
+});
+
+
 
 router.post('/removeservice', async (req, res) => {
   try {
     await Service.findOneAndDelete({ id: req.body.id })
 
-    console.log("Removed " + );
+    console.log("Removed");
     res.json({
       success: true,
       name: req.body.name

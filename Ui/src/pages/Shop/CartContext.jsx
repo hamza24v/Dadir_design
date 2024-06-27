@@ -14,7 +14,7 @@ export const CartProvider = ({ children }) => {
   const [allItems, setAllItems] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/services")
+    fetch(`${import.meta.env.VITE_API_URL}/services`)
       .then(async (response) => {
         const data = await response.json()
         console.log("response: ", data.success)
@@ -35,8 +35,8 @@ export const CartProvider = ({ children }) => {
     const quantity = getProductQuantity(id)
     if (quantity === 0) {
       if (variation) {
-        const { newPrice, oldPrice, selectedVariation } = variation;
-        setCartItems([...cartItems, { ...product, id: `${product.id}.${selectedVariation}`, quantity: 1, newPrice, oldPrice, selectedVariation }])
+        const { newPrice, oldPrice, selectedVariation, priceId } = variation;
+        setCartItems([...cartItems, { ...product, id: `${product.id}.${selectedVariation}`, quantity: 1, newPrice, oldPrice, selectedVariation, priceId }])
       } else {
         setCartItems([...cartItems, { ...product, id, quantity: 1 }])
       }

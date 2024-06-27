@@ -7,16 +7,16 @@ function Cart() {
   const { items, removeOneFromCart, getTotalCost } = useContext(CartContext);
 
   const checkout = async () => {
-    await fetch('http://localhost:3000/checkout', {
+    await fetch(`${import.meta.env.VITE_API_URL}/stripe/checkout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ items: cart.items })
+      body: JSON.stringify({ items: items })
     }).then((response) => {
       return response.json()
     }).then((response) => {
-      if(response.json()){
+      if(response.url){
         window.location.assign(response.url); // forwards user to stripe url
       }
     })
