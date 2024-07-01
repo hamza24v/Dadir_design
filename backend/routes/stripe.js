@@ -36,7 +36,7 @@ router.post('/checkout', async (req, res) => {
             line_items: lineItems,
             mode: 'payment',
             success_url: `${process.env.CLIENT_URL}/success`,
-            cancel_url: `${process.env.CLIENT_URL}/cancel`
+            cancel_url: `${process.env.CLIENT_URL}/Shop`
         })
 
         res.send(JSON.stringify({
