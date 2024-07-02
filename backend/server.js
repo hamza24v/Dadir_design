@@ -9,6 +9,7 @@ const stripe = require('./routes/stripe')
 const services = require('./routes/services')
 const upload = require('./routes/upload')
 const photos = require('./routes/photos')
+const bookings = require('./routes/bookings')
 
 app.use(cors())
 app.use(express.json())
@@ -32,5 +33,6 @@ app.use('/services', services)
 app.use('/photos', photos)
 app.use('/serviceImages', express.static('upload/serviceImages'))
 app.use('/gallery', express.static('upload/gallery'))
+app.use('/bookings', bookings)
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

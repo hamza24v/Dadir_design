@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Dialog, DialogContent, DialogTitle, TextField, Checkbox, FormControlLabel, Button } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-// Define a validation schema for Formik
 const validationSchema = Yup.object({
   fullName: Yup.string().required('Required'),
   phoneNumber: Yup.string().required('Required'),
@@ -14,7 +15,7 @@ const validationSchema = Yup.object({
   message: Yup.string().required('Required'),
 });
 
-function QuoteDialog({ handleClose, open, title, submit_text }) {
+function QuoteDialog({ handleClose, open }) {
 
   const initialValues = {
     fullName: '',
@@ -26,14 +27,34 @@ function QuoteDialog({ handleClose, open, title, submit_text }) {
     message: '',
   };
 
-  const handleSubmit = (values, {  setSubmitting }) => {
-    console.log("submitted values: ", values)
-    setSubmitting(false);
-    handleClose();
+  const handleSubmit = async (values, {  setSubmitting, resetForm }) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/bookings`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values)
+      })
+      
+      if(response.ok){
+        toast.success('Booking created successfully')
+        resetForm();
+        handleClose()
+      } else {
+        toast.error("Error creating booking")
+      }
+    } catch (err) {
+      console.error("Error submitting form", err)
+      toast.error('An error occurred. Please try again.');
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
     <>
+      <ToastContainer />
       <Dialog className='w-200' open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle className='flex justify-center bg-blue-200' id="form-dialog-title">
           <h2 className='text-3xl'>Book an appointment</h2>
@@ -45,7 +66,7 @@ function QuoteDialog({ handleClose, open, title, submit_text }) {
             validationSchema={validationSchema}
             className='mt-20'
           >
-            {({ values, handleChange, handleBlur, errors, touched, setFieldValue }) => (
+            {({ handleChange, errors, touched }) => (
               <Form className='flex flex-col'>
                 <div className='py-4 flex flex-row space-x-5'>
                   <Field as={TextField} className='mr-3 flex-1' label="Full name" name="fullName" error={touched.fullName && !!errors.fullName} helperText={touched.fullName && errors.fullName} />
