@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
 router.get('/', async (_, res) => {
     try {
         const bookings = await Booking.find()
-        res.status(200).json({success: true, bookings})
+        res.status(201).send(bookings)
     } catch (err) {
         res.status(500).send("Error fetching bookings")
     }

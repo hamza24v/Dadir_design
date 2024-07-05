@@ -5,7 +5,7 @@ const Service = require('../models/service');
 router.get('/', async (_, res) => {
   try {
     const services = await Service.find();
-    res.json({ success: true, services });
+    res.status(201).send(services);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -4,8 +4,8 @@ const Photo = require('../models/photo')
 
 router.get('/', async (_, res) => {
     try { 
-        const photos = await Photo.find();
-        res.json({ success: true, photos })
+        const gallery = await Photo.find();
+        res.status(201).send(gallery)
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
@@ -29,13 +29,13 @@ router.post('/addphoto', async (req, res) => {
 
 
 router.post('/addphotos', async (req, res) => {
-    const { photos } = req.body;
+    const { gallery } = req.body;
 
     try { 
-        const savePromises = photos.map(async (item) => {
+        const savePromises = gallery.map(async (item) => {
             const photo = new Photo({
                 title: item.title,
-                imageUrl: item.imageUrl,
+                image: item.image,
                 description: item?.description
             })
 
