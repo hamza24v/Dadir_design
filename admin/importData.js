@@ -13,7 +13,6 @@ const client = createClient({
 })
 
 const uploadImage = async (imageUrl) => {
-    console.log('imageUrl: ', imageUrl)
     const response = await axios({
         url: imageUrl,
         method: 'GET',
@@ -42,15 +41,12 @@ const uploadImage = async (imageUrl) => {
 }
 
 const fetchData = async (endPoint) => {
-    console.log("fetching ", endPoint)
     const response = await fetch(`${process.env.API_URL}/${endPoint}`)
     const data = await response.json()
-    console.log('data: ', data.length)
     
     for (let item of data){
         if(item.image){
             item.image = await uploadImage(item.image)
-            console.log("item.image: ", item.image)
         }
     }
     return data
@@ -83,7 +79,7 @@ const transformData = (data, type) => {
             }
         } else if(type === 'bookings'){
             return {
-                _id: `imported-${item.id}`,
+                _id: `imported-${item._id}`,
                 _type: 'booking',
                 fullName: item.fullName,
                 phoneNumber: item.phoneNumber,
@@ -95,14 +91,14 @@ const transformData = (data, type) => {
             }
         } else if(type === 'gallery'){
             return {
-                _id: `imported-${item.id}`,
+                _id: `imported-${item._id}`,
                 _type: 'gallery',
                 title: item.title,
                 image: {
                     _type: 'image',
                     asset: {
                         _type: 'reference',
-                        _ref: item.imageUrl
+                        _ref: item.image
                     }
                 },
                 description: item.description
@@ -115,13 +111,14 @@ const importData = async () => {
     const gallery  = await fetchData('gallery')
     const services = await fetchData('services')
     const bookings = await fetchData('bookings')
-    console.log("bookings: ", bookings)
+
     const servicesDoc = transformData(services, 'services')
     console.log("transformed services")
     const bookingsDoc = transformData(bookings, 'bookings')
     console.log("transformed bookings")
     const galleryDoc = transformData(gallery, 'gallery')
     console.log("transformed gallery")
+
     // services
     let servicesTransaction = client.transaction()
     servicesDoc?.forEach(doc => {

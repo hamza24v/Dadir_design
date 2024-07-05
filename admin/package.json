@@ -5,7 +5,8 @@
   "main": "package.json",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "sanity dev",
+    "import-data": "node importData.js",
+    "dev": "npm run import-data && sanity dev",
     "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",
@@ -15,7 +16,13 @@
     "sanity"
   ],
   "dependencies": {
+    "@sanity/client": "^6.20.1",
     "@sanity/vision": "^3.48.1",
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "fs": "^0.0.1-security",
+    "node-fetch": "^2.7.0",
+    "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sanity": "^3.48.1",
