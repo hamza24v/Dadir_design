@@ -19,6 +19,12 @@ export default defineType({
                 hotspot: true
             },
             validation: Rule => Rule.required()
+        }),
+        defineField({
+            name: 'description',
+            title: 'Description',
+            type: 'string',
+            validation: Rule => Rule.required()
         })
     ]
 })
