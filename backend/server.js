@@ -1,6 +1,6 @@
 require('dotenv').config()
 const express = require('express');
-const mongoose = require('mongoose');
+const connectDB = require('./db/connection');
 const cors = require('cors')
 const app = express();
 
@@ -15,18 +15,7 @@ app.use(cors())
 app.use(express.json())
 const PORT = process.env.PORT || 3000
 
-
-async function connect(){
-    try{ 
-        await mongoose.connect(process.env.MONGODB_URI);
-        console.log("connected to mongodb")
-    } catch(error) {
-        console.log(error)
-    }
-}
-
-connect()
-
+connectDB() // connect to mongoDB
 app.use('/upload', upload)
 app.use('/stripe', stripe)
 app.use('/services', services)
