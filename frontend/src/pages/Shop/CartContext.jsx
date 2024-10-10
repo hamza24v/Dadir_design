@@ -17,8 +17,8 @@ export const CartProvider = ({ children }) => {
     fetch(`${import.meta.env.VITE_API_URL}/services`)
       .then(async (response) => {
         const data = await response.json()
-        console.log("response: ", data.success)
-        setAllItems(data.services)
+        console.log("response: ", data)
+        setAllItems(data)
       })
   }, [])
 

@@ -4,3 +4,11 @@
 
 
 
+.theme-gradient {
+    @apply bg-gradient-to-r from-blue-100 via-blue-200 to-violet-300
+}
+
+
+.text-gradient {
+    @apply bg-gradient-to-r from-blue-300 via-blue-200 to-violet-400
+}

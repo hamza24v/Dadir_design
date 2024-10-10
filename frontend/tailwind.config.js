@@ -6,8 +6,16 @@ export default {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'furniture-pattern': "url('./assets/whitebackground.webp')",
+      keyframes: {
+        scroll: {
+          to : {
+            transform: "translate(calc(-50% - 0.5rem))",
+          },
+        },
+      },
+      animation: {
+        scroll:
+          "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
       },
       colors: {
         brand: '#f6bf09',

@@ -1,6 +1,6 @@
 import React from 'react'
 import ServiceCard from './ServiceCard';
-import { services } from '../constants/services_text';
+import { services } from '../constants';
 import { Button } from '@mui/material';
 import Shop from '../pages/Shop/Shop';
 import { NavLink } from 'react-router-dom';
@@ -9,11 +9,11 @@ import { scrollToTop } from '../utils';
 function Services() {
   
   return (
-    <div className='flex flex-col justify-center items-center'>
-      <h2 className='text-3xl mb-5 font-semibold text-center'>Services We Offer</h2>
-      <div className="flex flex-cols-1 md:flex-cols-2 lg:flex-cols-3 max-w-full justify-center items-start flex-wrap">
+    <section className='flex flex-col justify-center items-center mt-10'>
+      <h2 className='text-5xl mb-5 font-semibold text-center'>Services We Offer</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
         {services.map((service, index) => (
-          <ServiceCard key={index} title={service.title} description={service.description} />
+          <ServiceCard key={index} title={service.title} image={service.image} description={service.description} />
         ))}
       </div>
       <NavLink to='/Shop' onClick={() => scrollToTop()}>
@@ -27,7 +27,7 @@ function Services() {
           Shop Now
         </Button>
       </NavLink>
-    </div>
+    </section>
 
   );
 }
