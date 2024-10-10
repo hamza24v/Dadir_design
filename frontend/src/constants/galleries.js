@@ -1,4 +1,4 @@
-export const galleries_text = `Discover the artistry and expertise of Dadir Design through our Galleries. 
+export const galleries_text = `Discover the artistry and expertise of Ophela Services through our Galleries. 
 Each piece of furniture we assemble and refunish for Columbus, OH, and the surrounding areas showcases our commitment 
 to excellence and design. Explore our diverse portfolio and find inspiration for your next furniture setup 
 project.`

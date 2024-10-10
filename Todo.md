@@ -8,11 +8,15 @@
  - pages in services take longer to load than other nav items (useCallback and memo can be used here)
  - add sliding into screen animations for dadir pic and about paragraph in about  page
  - add contact number and email to left of logo
- - mobile view needs a lot of work
+ - 
  
 # backend: 
  - create a database and upload pictures
- - chat box, amazon lex ai chat?
+ - Integrate Sanity and 
+
+
+# bugs:
+- removing an item from cart closes the cart screen
  
 
  # example sites: 

@@ -1,6 +1,6 @@
 import './output.css';
 import { Routes, Route } from 'react-router-dom'
-import Home from './pages/Home/Home';
+import Home from './pages/Home';
 import Galleries from './pages/Galleries';
 import About from './pages/About';
 import Navbar from './components/Navbar';

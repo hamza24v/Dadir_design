@@ -22,7 +22,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='bg-blue-100 shadow fixed top-0 w-full z-50'>
+    <nav className='bg-blue-100 shadow top-0 w-full z-50'>
       <div className='max-w-6xl mx-auto px-4'>
         <ClickAwayListener onClickAway={() => setOpen(false)}>
           <div className='flex flex-col'>

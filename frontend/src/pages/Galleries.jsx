@@ -9,7 +9,7 @@ function Galleries({ showPreview }) {
 
   return (
     <div className="flex flex-col justify-center items-center mt-20 px-4 py-8">
-      <h1 className="text-3xl font-bold text-center mb-4">Galleries</h1>
+      <h1 className="text-5xl font-semibold text-center mb-4">Galleries</h1>
 
       <div className="grid grid-col mb-10 w-full justify-items-center mt-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4  items-center">
