@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import MenuIcon from "@mui/icons-material/Menu";
+import Menu from "@mui/icons-material/Menu";
 import { ClickAwayListener } from "@mui/material";
 import { scrollToTop } from "../utils";
 
@@ -56,7 +56,7 @@ const Navbar = () => {
               </div>
               {/* Mobile Menu */}
               <div className="sm:flex md:hidden flex flex-row justify-center items-center gap-4 text-center">
-                <MenuIcon
+                <Menu
                   onClick={toggleMenu}
                   className="hover:text-gray-600 transition duration-200 cursor-pointer"
                   fontSize="medium"
