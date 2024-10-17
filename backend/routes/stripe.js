@@ -22,7 +22,7 @@ router.post('/create-payment-intent', async (req, res) => {
 });
 
 router.post('/checkout', async (req, res) => {
-    const { items } = req.body;
+    const { items, serviceDate } = req.body;
     try {
         let lineItems = []
         items.forEach((item) => {
@@ -41,12 +41,11 @@ router.post('/checkout', async (req, res) => {
             },
 
             metadata: {
-                service_date: selectedDate
+                service_date: serviceDate
             },
             success_url: `${process.env.CLIENT_URL}/success`,
             cancel_url: `${process.env.CLIENT_URL}/Shop`,
 
-            
         })
 
         res.send(JSON.stringify({

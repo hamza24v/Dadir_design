@@ -1,7 +1,5 @@
 import React from 'react'
 import { SectionWrapper } from '../hoc'
-import 'swiper/css';
-import 'swiper/css/pagination';
 import { testimonials } from '../constants';
 import { InfiniteMovingCards } from './InfiniteCards';
 

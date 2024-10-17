@@ -13,7 +13,7 @@ function Cart() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ items: items }),
+      body: JSON.stringify({ items }),
     })
       .then((response) => {
         return response.json();

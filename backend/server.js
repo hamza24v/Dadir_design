@@ -11,7 +11,19 @@ const upload = require('./routes/upload')
 const gallery = require('./routes/gallery')
 const bookings = require('./routes/bookings')
 
-app.use(cors())
+const allowedOrigins = ['https://www.ophelaservices.com', 'http://localhost:5173'];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (allowedOrigins.includes(origin) || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: 'GET,POST,PUT,DELETE',
+    credentials: true
+}));
 app.use(express.json())
 const PORT = process.env.PORT || 3000
 
