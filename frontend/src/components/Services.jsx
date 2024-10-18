@@ -17,15 +17,12 @@ function Services() {
         ))}
       </div>
       <NavLink to='/Shop' onClick={() => scrollToTop()}>
-        <Button
-          size='large'
-          variant='contained'
-          color='salmon'
-          style={{ marginTop: '20px' }}
+        <button
+          className='relative mt-8 bg-gradient-to-r from-slate-900 to-cyan-400 hover:scale-105 transition duration-300 text-white font-semibold px-8 py-3 rounded-lg shadow-md'
           onClick={<Shop />}
         >
-          Shop Now
-        </Button>
+          Book a Service
+        </button>
       </NavLink>
     </section>
 

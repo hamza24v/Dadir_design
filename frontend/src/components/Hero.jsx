@@ -30,7 +30,7 @@ function Hero() {
 
       <NavLink to='/Shop' onClick={() => scrollToTop()}>
       <button
-        className="relative mt-8 bg-blue-500 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg shadow-md"
+        className="relative mt-8 bg-gradient-to-r from-slate-900 to-cyan-400 hover:scale-105 transition duration-300 text-white font-semibold px-8 py-3 rounded-lg shadow-md"
       >
         Book a Service
       </button>

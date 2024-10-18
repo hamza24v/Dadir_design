@@ -43,10 +43,10 @@ function Galleries({ showPreview }) {
       </div>
       {showPreview && (
         <NavLink to="/Galleries" onClick={scrollToTop}>
-          <Button size="large" variant="contained" color="salmon">
+          <button className="relative mt-8 bg-gradient-to-r from-slate-900 to-cyan-400 hover:scale-105 transition duration-300 text-white font-semibold px-8 py-3 rounded-lg shadow-md">
             {" "}
             View more
-          </Button>
+          </button>
         </NavLink>
       )}
     </div>

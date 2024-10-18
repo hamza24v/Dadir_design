@@ -89,16 +89,22 @@ function ShopCard({ item, addToCart }) {
           disablePast
           shouldDisableTime={(timeValue, clockType) => {
             if (clockType === "hours") {
-               // Disable times on Fridays from 12 PM to 3 PM, and 6-8pm
-               const day = serviceDate.day();
-               if (timeValue < 8 || timeValue > 17 || (day === 5 && timeValue >= 12 && timeValue < 15)) {
-                 return true;
-               }
+              // Disable times on Fridays from 12 PM to 3 PM, and 6-8pm
+              const day = serviceDate.day();
+              if (
+                timeValue < 8 ||
+                timeValue > 17 ||
+                (day === 5 && timeValue >= 12 && timeValue < 15)
+              ) {
+                return true;
+              }
               return false;
             }
             return false;
           }}
-          renderInput={(params) => <TextField {...params} fullWidth />}
+          renderInput={(params) => (
+            <TextField {...params} fullWidth error={false} />
+          )}
         />
       </div>
       <div className="mt-5"></div>
