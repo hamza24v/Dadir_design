@@ -10,7 +10,7 @@ function Galleries({ showPreview }) {
   const [loading, setLoading] = useState(true);
 
   const fetchGalleries = async () => {
-    const response = await fetch(`${import.meta.env.VITE_APP_API_URL_URL}/gallery`);
+    const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/gallery`);
     const data = await response.json();
     setGalleries(data);
     setLoading(false);
