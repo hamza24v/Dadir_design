@@ -9,8 +9,8 @@ function ServiceCard({ title, description, image }) {
         className="w-[80%] h-[40vh] mb-4 bg-cover bg-no-repeat"
         style={{ backgroundImage: `url(${image})` }}
       ></div>
-      <p className="font-bold text-xl mb-2">{title}</p>
-      <p className="text-gray-800 text-md">{description}</p>
+      <p className="font-bold text-2xl mb-2">{title}</p>
+      <p className="text-gray-700 text-[17px]">{description}</p>
     </div>
   );
 }

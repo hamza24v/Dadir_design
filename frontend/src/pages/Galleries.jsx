@@ -10,7 +10,7 @@ function Galleries({ showPreview }) {
   const [loading, setLoading] = useState(true);
 
   const fetchGalleries = async () => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/gallery`);
+    const response = await fetch(`${import.meta.env.VITE_APP_API_URL_URL}/gallery`);
     const data = await response.json();
     setGalleries(data);
     setLoading(false);
@@ -22,7 +22,7 @@ function Galleries({ showPreview }) {
 
   return (
     <div className="flex flex-col justify-center items-center px-4 py-8">
-      <h1 className="text-5xl font-bold text-center mb-12 text-blue-900">
+      <h1 className="text-5xl font-semibold text-center mb-12 text-blue-900">
         Galleries
       </h1>
 

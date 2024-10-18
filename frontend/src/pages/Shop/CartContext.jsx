@@ -15,7 +15,7 @@ export const CartProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/services`).then(async (response) => {
+    fetch(`${import.meta.env.VITE_APP_API_URL_URL}/services`).then(async (response) => {
       const data = await response.json();
       console.log("response: ", data);
       setAllItems(data);

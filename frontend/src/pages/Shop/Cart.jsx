@@ -8,7 +8,7 @@ function Cart() {
   const { items, removeOneFromCart, getTotalCost } = useContext(CartContext);
 
   const checkout = async () => {
-    await fetch(`${import.meta.env.VITE_API_URL}/stripe/checkout`, {
+    await fetch(`${import.meta.env.VITE_APP_API_URL_URL}/stripe/checkout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
