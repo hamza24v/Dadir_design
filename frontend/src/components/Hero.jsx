@@ -32,7 +32,7 @@ function Hero() {
       <button
         className="relative mt-8 bg-blue-500 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg shadow-md"
       >
-        Start Shopping
+        Book a Service
       </button>
       </NavLink>
     </section>
