@@ -12,7 +12,7 @@ router.get('/', async (_, res) => {
 });
 
 router.post('/addservice', async (req, res) => {
-  const { name, newPrice, oldPrice, variations, image, serviceType, priceId } = req.body;
+  const { name, newPrice, oldPrice, variations, image, services, priceId } = req.body;
 
   try {
     const lastService = await Service.findOne().sort({ id: -1 });
@@ -26,7 +26,7 @@ router.post('/addservice', async (req, res) => {
       priceId,
       variations,
       image,
-      serviceType
+      services
     });
 
     await newService.save();
@@ -59,7 +59,7 @@ router.post('/addservices', async (req, res) => {
         priceId: item.priceId,
         variations: item.variations,
         image: item.image,
-        serviceType: item.serviceType
+        services: item.services
       })
 
       await service.save()
@@ -81,8 +81,6 @@ router.post('/addservices', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
-
 
 router.post('/removeservice', async (req, res) => {
   try {

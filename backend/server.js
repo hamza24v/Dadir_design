@@ -24,12 +24,12 @@ app.use(cors({
     methods: 'GET,POST,PUT,DELETE',
     credentials: true
 }));
-app.use(express.json())
 const PORT = process.env.PORT || 3000
 
 connectDB() // connect to mongoDB
-app.use('/upload', upload)
 app.use('/stripe', stripe)
+app.use(express.json())
+app.use('/upload', upload)
 app.use('/services', services)
 app.use('/gallery', gallery)
 app.use('/serviceImages', express.static('upload/serviceImages'))
