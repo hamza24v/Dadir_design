@@ -4,8 +4,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { ClickAwayListener } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import CartIcon from "../pages/Shop/CartIcon";
+import { navLinks } from '../constants'
 
-const navLinks = ["Home", "Galleries", "About", "Shop"];
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -38,14 +38,14 @@ const Navbar = () => {
             </NavLink>
             {/* Desktop Menu */}
             <div className={`hidden md:flex items-center`}>
-              {navLinks.map((menu, idx) => (
+              {navLinks.map(({title, menu}, idx) => (
                 <NavLink
                   key={idx}
-                  to={"/" + (menu === "Home" ? "" : menu)}
+                  to={"/" + (menu === "home" ? "" : menu)}
                   onClick={handleNavClick}
                   className="px-3 text-gray-900 font-semibold hover:text-blue-600 transition duration-300"
                 >
-                  {menu === "About" ? menu + " Us" : menu}
+                  {title === "About" ? title + " Us" : title}
                 </NavLink>
               ))}
               <CartIcon />
@@ -74,7 +74,10 @@ const Navbar = () => {
           <div className=" p-4 bg-blue-200 absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl">
             <ul className="text-left py-2">
               {navLinks.map((menu, idx) => (
-                <li key={idx} className="font-poppins py-1 font-medium text-[18px]">
+                <li
+                  key={idx}
+                  className="font-poppins py-1 font-medium text-[18px]"
+                >
                   <NavLink
                     to={"/" + (menu === "Home" ? "" : menu)}
                     onClick={handleNavClick}
