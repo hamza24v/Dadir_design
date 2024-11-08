@@ -90,6 +90,13 @@ export const SERVICE_AREAS = [
   "Forest Park, OH",
 ];
 
+export const navLinks = [
+  { title: "Home", menu: "home" },
+  { title: "Galleries", menu: "galleries" },
+  { title: "About", menu: "about" },
+  { title: "Shop", menu: "shop" },
+];
+
 export const HOURS = [
   " Sun: 8:00am - 6:00pm",
   "Mon: 8:00am - 6:00pm",

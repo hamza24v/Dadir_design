@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Button from "@mui/material/Button";
 import Select from "@mui/material/Select/Select";
 import { MenuItem, TextField, FormControl, InputLabel } from "@mui/material";
@@ -9,10 +9,19 @@ function ShopCard({ item, addToCart }) {
   const defaultVariation = item?.variations
     ? Object.keys(item.variations)[0]
     : null;
+  const defaultService = item?.services ? item.services[0] : null;
+
+  const pickupRef = useRef(null);
+  const dropoffRef = useRef(null);
+  const serviceRef = useRef(null);
 
   const [selectedVariation, setSelectedVariation] = useState(defaultVariation);
+  const [selectedService, setSelectedService] = useState(defaultService);
   const [serviceDate, setServiceDate] = useState(dayjs());
   const [availableTimes, setAvailableTimes] = useState([]);
+  const [pickupLocation, setPickupLocation] = useState("");
+  const [dropoffLocation, setDropoffLocation] = useState("");
+  const [serviceLocation, setServiceLocation] = useState("");
 
   useEffect(() => {
     const fetchAvailability = async () => {
@@ -23,12 +32,83 @@ function ShopCard({ item, addToCart }) {
     fetchAvailability();
   }, []);
 
-  const handleSelect = (e) => {
+  useEffect(() => {
+    if (selectedService === "Delivery" || selectedService === "Assembly" && window.google) {
+      const autocompletePickup = new window.google.maps.places.Autocomplete(
+        pickupRef.current,
+        {
+          types: ["address"],
+          componentRestrictions: { country: "us" },
+        }
+      );
+
+      const autocompleteDropoff = new window.google.maps.places.Autocomplete(
+        dropoffRef.current,
+        {
+          types: ["address"],
+        }
+      );
+
+      const autoCompleteService = new window.google.maps.places.Autocomplete(
+        serviceRef.current,
+        {
+          types: ["address"],
+          componentRestriction: { country: "us" },
+        }
+      );
+
+      autoCompleteService.addListener("place_changed", () => {
+        const place = autoCompleteService.getPlace();
+        setServiceLocation(place.formatted_address);
+      });
+
+      autocompletePickup.addListener("place_changed", () => {
+        const place = autocompletePickup.getPlace();
+        setPickupLocation(place.formatted_address);
+      });
+
+      autocompleteDropoff.addListener("place_changed", () => {
+        const place = autocompleteDropoff.getPlace();
+        setDropoffLocation(place.formatted_address);
+      });
+    }
+  }, [selectedService]);
+
+  const handleServiceSelect = (e) => {
+    setSelectedService(e.target.value);
+  };
+
+  const handleVariationSelect = (e) => {
     setSelectedVariation(e.target.value);
   };
 
-  const handleDateChange = (newDate) => {
-    setServiceDate(newDate);
+  const handleAddToCart = () => {
+    if (
+      selectedService === "Delivery" &&
+      (!pickupLocation || !dropoffLocation)
+    ) {
+      alert(
+        "Please fill in both pickup and dropoff locations for delivery service."
+      );
+      return;
+    }
+
+    if (selectedService === "Assembly" && !serviceLocation) {
+      alert("Please fill in the service location for assembly service.");
+      return;
+    }
+
+    addToCart(item, {
+      selectedVariation,
+      selectedService,
+      serviceDate,
+      pickupLocation: selectedService === "Delivery" ? pickupLocation : null,
+      dropoffLocation: selectedService === "Delivery" ? dropoffLocation : null,
+      serviceLocation:
+        selectedService === "Assembly"
+          ? serviceLocation
+          : null,
+    });
   };
 
   const oldPrice = selectedVariation
@@ -55,7 +135,7 @@ function ShopCard({ item, addToCart }) {
           ${oldPrice}
         </p>
       </div>
-      <div>
+      <div className="flex flex-col">
         <FormControl
           sx={{ my: 1, minWidth: 120 }}
           size="small"
@@ -65,7 +145,7 @@ function ShopCard({ item, addToCart }) {
           <Select
             label="Variations"
             id="variations-select"
-            onChange={handleSelect}
+            onChange={handleVariationSelect}
             value={selectedVariation || "None"}
           >
             {item?.variations ? (
@@ -79,12 +159,59 @@ function ShopCard({ item, addToCart }) {
             )}
           </Select>
         </FormControl>
+        <FormControl sx={{ my: 1, minWidth: 120 }} size="small">
+          <InputLabel id="service-select">Service Type</InputLabel>
+          <Select
+            label="Service Type"
+            id="service-select"
+            onChange={handleServiceSelect}
+            value={selectedService || "None"}
+          >
+            {item?.services?.map((service, index) => (
+              <MenuItem value={service} key={index}>
+                {service}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        {selectedService === "Delivery" && (
+          <>
+            <TextField
+              label="Pickup Location"
+              fullWidth
+              sx={{ mt: 2 }}
+              value={pickupLocation}
+              inputRef={pickupRef}
+              onChange={(e) => setPickupLocation(e.target.value)}
+            />
+            <TextField
+              label="Dropoff Location"
+              fullWidth
+              sx={{ mt: 2 }}
+              value={dropoffLocation}
+              inputRef={dropoffRef}
+              onChange={(e) => setDropoffLocation(e.target.value)}
+            />
+          </>
+        )}
+
+        {selectedService === "Assembly" && (
+            <TextField
+              label="Service Location"
+              fullWidth
+              sx={{ mt: 2 }}
+              value={serviceLocation}
+              inputRef={serviceRef}
+              onChange={(e) => setServiceLocation(e.target.value)}
+            />
+        )}
       </div>
       <div className="mt-4">
         <DateTimePicker
           label="Select Service Date"
           value={serviceDate}
-          onChange={handleDateChange}
+          onChange={(newDate) => setServiceDate(newDate)}
           minDate={dayjs()}
           disablePast
           shouldDisableTime={(timeValue, clockType) => {
@@ -113,14 +240,7 @@ function ShopCard({ item, addToCart }) {
         variant="contained"
         color="salmon"
         className="w-full"
-        onClick={() => {
-          addToCart(
-            item,
-            selectedVariation
-              ? { selectedVariation, newPrice, oldPrice, priceId, serviceDate }
-              : null
-          );
-        }}
+        onClick={handleAddToCart}
       >
         Add to Cart
       </Button>

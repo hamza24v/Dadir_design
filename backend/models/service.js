@@ -6,11 +6,7 @@ const variationSchema = new mongoose.Schema({
   priceId: { type: String, required: false}
 }, { _id: false });
 
-const serviceDetailSchema = new mongoose.Schema({
-  type: { type: String, required: true },
-  available: { type: Boolean, required: true },
-  requiresLocationInput: { type: Boolean, required: false }
-}, { _id: false });
+
 
 const serviceSchema = new mongoose.Schema({
   id: {
@@ -22,7 +18,7 @@ const serviceSchema = new mongoose.Schema({
     required: true
   },
   services: {
-    type: [serviceDetailSchema],
+    type: [String],
     required: true
   },
   newPrice: {
