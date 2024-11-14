@@ -101,6 +101,7 @@ function ShopCard({ item, addToCart }) {
     addToCart(item, {
       selectedVariation,
       selectedService,
+      newPrice,
       serviceDate,
       pickupLocation: selectedService === "Delivery" ? pickupLocation : null,
       dropoffLocation: selectedService === "Delivery" ? dropoffLocation : null,
@@ -155,7 +156,7 @@ function ShopCard({ item, addToCart }) {
                 </MenuItem>
               ))
             ) : (
-              <MenuItem value="None">No Variations Available</MenuItem>
+              <MenuItem value="None">All Variations</MenuItem>
             )}
           </Select>
         </FormControl>

@@ -41,13 +41,16 @@ function Cart() {
                 />
                 <div className="text-sm">
                   <p className="font-semibold text-gray-800">{item.name}</p>
-                  {item?.selectedVariation && (
-                    <p className="text-gray-500">
-                      Variation: {item.selectedVariation}
-                    </p>
-                  )}
+                 
                   <p className="text-gray-600 mt-1">
-                    {item.quantity} x ${item.newPrice}
+                    {item.quantity} x $
+                    {item.selectedVariation
+                      ? item.variations[item.selectedVariation].newPrice
+                      : item.newPrice}
+                  </p>
+                  <p className="text-gray-600 mt-1">
+                    Service Type:{" "}
+                    {item.selectedService}
                   </p>
                   <p className="text-gray-600 mt-1">
                     Service Date:{" "}
