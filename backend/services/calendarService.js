@@ -5,14 +5,11 @@ const { authenticate } = require('@google-cloud/local-auth');
 const { google } = require('googleapis');
 const dayjs = require("dayjs")
 
-// Scopes updated to allow read and write permissions
 const SCOPES = ['https://www.googleapis.com/auth/calendar.events'];
 
-// Paths for credentials and tokens
 const TOKEN_PATH = path.join(process.cwd(), 'token.json');
 const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
 
-// Load saved credentials if available
 async function loadSavedCredentialsIfExist() {
   try {
     const content = await fs.readFile(TOKEN_PATH);
@@ -23,7 +20,6 @@ async function loadSavedCredentialsIfExist() {
   }
 }
 
-// Save credentials after first authorization
 async function saveCredentials(client) {
   const content = await fs.readFile(CREDENTIALS_PATH);
   const keys = JSON.parse(content);
@@ -37,7 +33,6 @@ async function saveCredentials(client) {
   await fs.writeFile(TOKEN_PATH, payload);
 }
 
-// Authorize client
 async function authorize() {
   let client = await loadSavedCredentialsIfExist();
   if (client) {
@@ -49,22 +44,22 @@ async function authorize() {
   });
   if (client.credentials) {
     await saveCredentials(client);
+    console.log("Saved credentials")
   }
   return client;
 }
 
-// Add an event to Google Calendar
 async function addEvent(auth, serviceDetails) {
   const calendar = google.calendar({ version: 'v3', auth });
   const event = {
     summary: `Service Appointment: ${serviceDetails.name}`,
-    description: `Customer appointment for: ${serviceDetails.name}`,
+    description: `Customer appointment for: ${serviceDetails.customerName}\nPhone Number: ${serviceDetails.phoneNumber}`,
     start: {
-      dateTime: serviceDetails.startDateTime, // Format: 'YYYY-MM-DDTHH:mm:ssZ'
+      dateTime: serviceDetails.date, 
       timeZone: 'America/New_York',
     },
     end: {
-      dateTime: serviceDetails.endDateTime,
+      dateTime: dayjs(serviceDetails.date).add(2, "hours").toISOString(),
       timeZone: 'America/New_York',
     },
     attendees: [{ email: serviceDetails.customerEmail }],
@@ -73,8 +68,8 @@ async function addEvent(auth, serviceDetails) {
   // Check for conflicting events before adding
   const res = await calendar.events.list({
     calendarId: 'primary',
-    timeMin: serviceDetails.startDateTime,
-    timeMax: serviceDetails.endDateTime,
+    timeMin: serviceDetails.date,
+    timeMax: dayjs(serviceDetails.date).add(2, "hours").toISOString(),
     timeZone: 'America/New_York',
   });
   

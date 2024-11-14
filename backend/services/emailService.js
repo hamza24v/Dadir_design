@@ -36,7 +36,7 @@ const sendConfirmationEmail = (customerEmail, services) => {
             .join("")}
         </ul>
         <p style="margin-top: 20px;">We look forward to providing you with excellent service.</p>
-        <p style="font-size: 0.9em; color: #555;">If you have any questions, feel free to contact us at <a href="mailto:ophela.helps@gmail.com">hamzashueib23@gmail.com</a> or visit our website at <a href="https://www.ophelaservices.com">www.ophelaservices.com</a>.</p>
+        <p style="font-size: 0.9em; color: #555;">If you have any questions, feel free to contact us at <a href="mailto:ophela.helps@gmail.com">ophela.helps  @gmail.com</a> or visit our website at <a href="https://www.ophelaservices.com">www.ophelaservices.com</a>.</p>
           </div>
         `,
   };

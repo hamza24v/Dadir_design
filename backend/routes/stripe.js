@@ -68,7 +68,6 @@ router.post(
   (req, res) => {
     const sig = req.headers["stripe-signature"];
     let event;
-
     try {
       event = stripe.webhooks.constructEvent(
         req.body,
@@ -85,7 +84,7 @@ router.post(
       const session = event.data.object;
 
       // Extract the customer's email and metadata for service details
-      const customerEmail = "ophela.helps@gmail.com" || session.customer_details.email;
+      const customerEmail = "hamzashueib23@gmail.com" || session.customer_details.email;
       // const services = [];
       // Object.keys(session.metadata).forEach((key, index) => {
       //   if (key.includes("service") && key.includes("_name")) {
@@ -98,11 +97,16 @@ router.post(
       const services = [
         {
           name: "Furniture Assembly Service",
-          date: "2024-10-17 08:00 PM",
+          date: "2024-10-17T20:00:00Z",
+          customerName: "Hamza Shueib",
+          customerEmail: "hamzashueib23@gmail.com",
+          phoneNumber: ""
         },
         {
           name: "Delivery Service",
-          date: "2024-10-18 10:00 AM",
+          date: "2024-10-18T10:00:00Z",
+          customerName: "Hamza Shueib",
+          customerEmail: "hamzashueib23@gmail.com"
         },
       ];
       authorize().then((auth) => {

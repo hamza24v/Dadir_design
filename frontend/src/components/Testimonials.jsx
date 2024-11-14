@@ -19,4 +19,4 @@ function Testimonials() {
   );
 }
 
-export default SectionWrapper(Testimonials, "testimonials");;
+export default SectionWrapper(Testimonials, "testimonials");
