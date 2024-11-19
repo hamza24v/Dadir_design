@@ -17,7 +17,6 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     fetch(`${import.meta.env.VITE_APP_API_URL}/services`).then(async (response) => {
       const data = await response.json();
-      console.log("response: ", data);
       setAllItems(data);
       setLoading(false);
     });
@@ -33,28 +32,26 @@ export const CartProvider = ({ children }) => {
 
   function addToCart(product, variation) {
     const id = variation
-      ? `${product.id}.${variation.selectedVariation}`
+      ? `${product.id}.${variation.selectedVariation}.${variation.selectedService}`
       : product.id;
     const quantity = getProductQuantity(id);
     if (quantity === 0) {
-      if (variation) {
-        const { newPrice, oldPrice, selectedVariation, priceId, serviceDate } = variation;
-        setCartItems([
-          ...cartItems,
-          {
-            ...product,
-            id: `${product.id}.${selectedVariation}`,
-            quantity: 1,
-            newPrice,
-            oldPrice,
-            selectedVariation,
-            priceId,
-            serviceDate,
-          },
-        ]);
-      } else {
-        setCartItems([...cartItems, { ...product, id, quantity: 1 }]);
-      }
+      const { newPrice, selectedVariation, selectedService, serviceDate, pickupLocation, dropoffLocation, serviceLocation } = variation;
+      setCartItems([
+        ...cartItems,
+        {
+          ...product,
+          id: `${product.id}.${selectedVariation}.${selectedService}`,
+          quantity: 1,
+          newPrice,
+          selectedVariation,
+          selectedService,
+          serviceDate,
+          pickupLocation,
+          dropoffLocation,
+          serviceLocation
+        },
+      ]);
     } else {
       setCartItems(
         cartItems.map((item) =>
@@ -63,6 +60,7 @@ export const CartProvider = ({ children }) => {
       );
     }
   }
+  
 
   function deleteFromCart(id) {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));

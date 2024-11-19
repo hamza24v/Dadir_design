@@ -8,21 +8,23 @@ function Cart() {
   const { items, removeOneFromCart, getTotalCost } = useContext(CartContext);
 
   const checkout = async () => {
-    await fetch(`${import.meta.env.VITE_APP_API_URL}/stripe/checkout`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ items }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        if (response.url) {
-          window.location.assign(response.url);
-        }
+    try {
+      const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/stripe/checkout`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ items }),
       });
+  
+      const data = await response.json();
+  
+      if (data.url) {
+        window.location.assign(data.url);
+      }
+    } catch (error) {
+      console.error("Error during checkout:", error);
+    }
   };
   return (
     <div className="overflow-auto max-h-96 absolute right-0 mt-2 w-96 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
