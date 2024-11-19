@@ -22,6 +22,28 @@ export const CartProvider = ({ children }) => {
     });
   }, []);
 
+  const checkout = async (items) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/stripe/checkout`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+          items: items.map(({ id, image, oldPrice, services, variations, ...rest}) => rest)
+         }),
+      });
+  
+      const data = await response.json();
+  
+      if (data.url) {
+        window.location.assign(data.url);
+      }
+    } catch (error) {
+      console.error("Error during checkout:", error);
+    }
+  };
+
   function getProductQuantity(id) {
     const quantity = cartItems.find((item) => item.id === id)?.quantity;
     if (quantity === undefined) {
@@ -47,9 +69,7 @@ export const CartProvider = ({ children }) => {
           selectedVariation,
           selectedService,
           serviceDate,
-          pickupLocation,
-          dropoffLocation,
-          serviceLocation
+      
         },
       ]);
     } else {
@@ -95,6 +115,7 @@ export const CartProvider = ({ children }) => {
     getTotalCost,
     allItems,
     loading,
+    checkout
   };
 
   return (

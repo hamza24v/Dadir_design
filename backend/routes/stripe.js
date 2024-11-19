@@ -29,16 +29,16 @@ router.post("/checkout", express.json("application/json"), async (req, res) => {
   const metadata = {};
   try {
     let lineItems = [];
-    items.forEach((item) => {
+    items.forEach((item, index) => {
       lineItems.push({
         price: item.priceId,
         quantity: item.quantity,
-        description: `${item.selectedService} Service`,
       });
       metadata[`service_${index + 1}_name`] = item.name;
-      metadata[`service_${index + 1}_start`] = item.serviceDate.toISOString();
+      metadata[`service_${index + 1}_start`] = item.serviceDate;
       metadata[`service_${index + 1}_end`] = dayjs(item.serviceDate).add(2, 'hours').toISOString();
       metadata[`service_${index + 1}_type`] = item.selectedService
+      metadata[`service_${index + 1}_location`] = item.selectedService === "Assembly" ? item.assemblyLocation : item.deliveryLocation
     });
 
     const session = await stripe.checkout.sessions.create({
@@ -96,6 +96,7 @@ router.post(
             startDateTime: session.metadata[`service_${index + 1}_start`],
             endDateTime: session.metadata[`service_${index + 1}_end`],
             type: session.metadata[`service_${index + 1}_type`],
+            location: session.metadata[`service_${index + 1}_location`],
             customerName,
             customerEmail,
             customerPhone,

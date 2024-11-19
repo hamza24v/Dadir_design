@@ -5,27 +5,8 @@ import { Button } from "@mui/material";
 import dayjs from "dayjs";
 
 function Cart() {
-  const { items, removeOneFromCart, getTotalCost } = useContext(CartContext);
+  const { items, removeOneFromCart, getTotalCost, checkout } = useContext(CartContext);
 
-  const checkout = async () => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/stripe/checkout`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ items }),
-      });
-  
-      const data = await response.json();
-  
-      if (data.url) {
-        window.location.assign(data.url);
-      }
-    } catch (error) {
-      console.error("Error during checkout:", error);
-    }
-  };
   return (
     <div className="overflow-auto max-h-96 absolute right-0 mt-2 w-96 bg-white border border-gray-300 rounded-lg shadow-lg z-50">
       <p className="text-center font-semibold text-2xl py-4 border-b border-gray-200">
@@ -46,7 +27,7 @@ function Cart() {
                  
                   <p className="text-gray-600 mt-1">
                     {item.quantity} x $
-                    {item.selectedVariation
+                    {item.selectedVariation !== 'all'
                       ? item.variations[item.selectedVariation].newPrice
                       : item.newPrice}
                   </p>
@@ -80,7 +61,7 @@ function Cart() {
           variant="contained"
           color="salmon"
           className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-md shadow-md"
-          onClick={checkout}
+          onClick={() => checkout(items)}
         >
           Checkout
         </Button>

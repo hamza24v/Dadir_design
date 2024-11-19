@@ -62,7 +62,10 @@ async function addEvent(auth, serviceDetails) {
       dateTime: serviceDetails.endDateTime,
       timeZone: "America/New_York",
     },
-    attendees: [{ email: serviceDetails.customerEmail }]
+    attendees: [{ email: serviceDetails.customerEmail }],
+    location: serviceDetails.type === 'Assembly'
+    ? serviceDetails.location
+    : `Pickup: ${serviceDetails.location.pickUp}, Dropoff: ${serviceDetails.location.dropOff}`,
   };
 
   // Check for conflicting events before adding

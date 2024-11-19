@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 function ShopCard({ item, addToCart }) {
   const defaultVariation = item?.variations
     ? Object.keys(item.variations)[0]
-    : null;
+    : "all";
   const defaultService = item?.services ? item.services[0] : null;
 
   const pickupRef = useRef(null);
@@ -21,7 +21,7 @@ function ShopCard({ item, addToCart }) {
   const [availableTimes, setAvailableTimes] = useState([]);
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
-  const [serviceLocation, setServiceLocation] = useState("");
+  const [assemblyLocation, setAssemblyLocation] = useState("");
 
   useEffect(() => {
     const fetchAvailability = async () => {
@@ -59,7 +59,7 @@ function ShopCard({ item, addToCart }) {
 
       autoCompleteService.addListener("place_changed", () => {
         const place = autoCompleteService.getPlace();
-        setServiceLocation(place.formatted_address);
+        setAssemblyLocation(place.formatted_address);
       });
 
       autocompletePickup.addListener("place_changed", () => {
@@ -93,32 +93,43 @@ function ShopCard({ item, addToCart }) {
       return;
     }
 
-    if (selectedService === "Assembly" && !serviceLocation) {
+    if (selectedService === "Assembly" && !assemblyLocation) {
       alert("Please fill in the service location for assembly service.");
       return;
     }
 
-    addToCart(item, {
-      selectedVariation,
-      selectedService,
-      newPrice,
-      serviceDate,
-      pickupLocation: selectedService === "Delivery" ? pickupLocation : null,
-      dropoffLocation: selectedService === "Delivery" ? dropoffLocation : null,
-      serviceLocation:
-        selectedService === "Assembly"
-          ? serviceLocation
-          : null,
-    });
+    if(selectedService === "Assembly"){
+      addToCart(item, {
+        selectedVariation,
+        selectedService,
+        newPrice,
+        serviceDate,
+        assemblyLocation
+      });
+    } else {
+      const deliveryLocation = {
+        pickUp: pickUpLocation,
+        dropoff: dropoffLocation,
+      }
+      addToCart(item, {
+        selectedVariation,
+        selectedService,
+        newPrice,
+        serviceDate,
+        deliveryLocation
+      });
+    }
+
+   
   };
 
-  const oldPrice = selectedVariation
+  const oldPrice = selectedVariation !== 'all'
     ? item.variations[selectedVariation].oldPrice
     : item.oldPrice;
-  const newPrice = selectedVariation
+  const newPrice = selectedVariation !== 'all'
     ? item.variations[selectedVariation].newPrice
     : item.newPrice;
-  const priceId = selectedVariation
+  const priceId = selectedVariation !== 'all'
     ? item.variations[selectedVariation].priceId
     : item.priceId;
 
@@ -147,7 +158,7 @@ function ShopCard({ item, addToCart }) {
             label="Variations"
             id="variations-select"
             onChange={handleVariationSelect}
-            value={selectedVariation || "None"}
+            value={selectedVariation !== 'all' ? selectedVariation : "None"}
           >
             {item?.variations ? (
               Object.entries(item.variations).map(([variation, _], index) => (
@@ -202,9 +213,9 @@ function ShopCard({ item, addToCart }) {
               label="Service Location"
               fullWidth
               sx={{ mt: 2 }}
-              value={serviceLocation}
+              value={assemblyLocation}
               inputRef={serviceRef}
-              onChange={(e) => setServiceLocation(e.target.value)}
+              onChange={(e) => setAssemblyLocation(e.target.value)}
             />
         )}
       </div>
