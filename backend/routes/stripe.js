@@ -24,21 +24,21 @@ router.post("/create-payment-intent", async (req, res) => {
   }
 });
 
-router.post("/checkout", express.json('application/json'), async (req, res) => {
-  const { items } = req.body
+router.post("/checkout", express.json("application/json"), async (req, res) => {
+  const { items } = req.body;
+  const metadata = {};
   try {
     let lineItems = [];
-    let serviceDates = [];
     items.forEach((item) => {
       lineItems.push({
         price: item.priceId,
         quantity: item.quantity,
+        description: `${item.selectedService} Service`,
       });
-      serviceDates.push({
-        name: item.name,
-        startDateTime: item.serviceDate,
-        endDateTime: dayjs(item.serviceDate).add(2, 'hours')
-      });
+      metadata[`service_${index + 1}_name`] = item.name;
+      metadata[`service_${index + 1}_start`] = item.serviceDate.toISOString();
+      metadata[`service_${index + 1}_end`] = dayjs(item.serviceDate).add(2, 'hours').toISOString();
+      metadata[`service_${index + 1}_type`] = item.selectedService
     });
 
     const session = await stripe.checkout.sessions.create({
@@ -48,6 +48,7 @@ router.post("/checkout", express.json('application/json'), async (req, res) => {
       phone_number_collection: {
         enabled: true,
       },
+      metadata: metadata,
       success_url: `${process.env.CLIENT_URL}/success`,
       cancel_url: `${process.env.CLIENT_URL}/shop`,
     });
@@ -68,6 +69,7 @@ router.post(
   (req, res) => {
     const sig = req.headers["stripe-signature"];
     let event;
+
     try {
       event = stripe.webhooks.constructEvent(
         req.body,
@@ -79,41 +81,35 @@ router.post(
       return res.sendStatus(400);
     }
 
-    // Handle the checkout.session.completed event
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
 
-      // Extract the customer's email and metadata for service details
-      const customerEmail = "hamzashueib23@gmail.com" || session.customer_details.email;
-      // const services = [];
-      // Object.keys(session.metadata).forEach((key, index) => {
-      //   if (key.includes("service") && key.includes("_name")) {
-      //     services.push({
-      //       name: session.metadata[`service_${index + 1}_name`],
-      //       date: session.metadata[`service_${index + 1}_date`],
-      //     });
-      //   }
-      // });
-      const services = [
-        {
-          name: "Furniture Assembly Service",
-          date: "2024-10-17T20:00:00Z",
-          customerName: "Hamza Shueib",
-          customerEmail: "hamzashueib23@gmail.com",
-          phoneNumber: ""
-        },
-        {
-          name: "Delivery Service",
-          date: "2024-10-18T10:00:00Z",
-          customerName: "Hamza Shueib",
-          customerEmail: "hamzashueib23@gmail.com"
-        },
-      ];
-      authorize().then((auth) => {
-        services.forEach((serviceDetails) => {
-          addEvent(auth, serviceDetails);
-        });
-      }).catch(console.error);
+      const customerName = session.customer_details.name;
+      const customerEmail = session.customer_details.email;
+      const customerPhone = session.customer_details.phone;
+
+      const services = [];
+      Object.keys(session.metadata).forEach((key, index) => {
+        if (key.includes("service_")) {
+          services.push({
+            name: session.metadata[`service_${index + 1}_name`],
+            startDateTime: session.metadata[`service_${index + 1}_start`],
+            endDateTime: session.metadata[`service_${index + 1}_end`],
+            type: session.metadata[`service_${index + 1}_type`],
+            customerName,
+            customerEmail,
+            customerPhone,
+          });
+        }
+      });
+
+      authorize()
+        .then((auth) => {
+          services.forEach((serviceDetails) => {
+            addEvent(auth, serviceDetails);
+          });
+        })
+        .catch(console.error);
       console.log(sendConfirmationEmail(customerEmail, services));
     }
 
