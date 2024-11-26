@@ -1,4 +1,6 @@
-function Completion(props) {
+import React from 'react';
+
+function Completion() {
   return (
     <div className="px-4 h-auto py-8 text-center mt-20 container text-large">
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-xl mx-auto">
