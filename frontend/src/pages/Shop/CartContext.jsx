@@ -35,7 +35,7 @@ export const CartProvider = ({ children }) => {
       });
   
       const data = await response.json();
-  
+  console.log("test")
       if (data.url) {
         window.location.assign(data.url);
       }
