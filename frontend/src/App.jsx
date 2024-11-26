@@ -7,7 +7,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Shop from './pages/Shop/Shop'
 import { CartProvider } from './pages/Shop/CartContext'
-import Completion from './pages/Shop/Completion';
+import Completion from './pages/Completion';
 
 function App() {
   return (
