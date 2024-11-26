@@ -10,12 +10,6 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendConfirmationEmail = (customerEmail, services) => {
-  const formattedServices = services
-    .map(
-      ({ name, date }) =>
-        `- ${name} (Scheduled for: ${dayjs(date).format("MM-DD-YYYY")})`
-    )
-    .join("\n");
 
   const mailOptions = {
     from: process.env.MAIL_USERNAME,
@@ -31,7 +25,7 @@ const sendConfirmationEmail = (customerEmail, services) => {
               ({ name, date }) =>
                 `<li><strong>${name}</strong> - Scheduled for: ${dayjs(
                   date
-                ).format("MM-DD-YYYY")}</li>`
+                ).format("MM-DD-YYYY hh:mm A")}</li>`
             )
             .join("")}
         </ul>
