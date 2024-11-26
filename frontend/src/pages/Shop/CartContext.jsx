@@ -58,7 +58,7 @@ export const CartProvider = ({ children }) => {
       : product.id;
     const quantity = getProductQuantity(id);
     if (quantity === 0) {
-      const { newPrice, selectedVariation, selectedService, serviceDate, pickupLocation, dropoffLocation, serviceLocation } = variation;
+      const { newPrice, selectedVariation, selectedService, serviceDate, deliveryLocation, assemblyLocation, priceId } = variation;
       setCartItems([
         ...cartItems,
         {
@@ -69,7 +69,9 @@ export const CartProvider = ({ children }) => {
           selectedVariation,
           selectedService,
           serviceDate,
-      
+          deliveryLocation,
+          assemblyLocation,
+          priceId
         },
       ]);
     } else {

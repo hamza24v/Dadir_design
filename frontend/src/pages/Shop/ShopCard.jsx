@@ -104,7 +104,8 @@ function ShopCard({ item, addToCart }) {
         selectedService,
         newPrice,
         serviceDate,
-        assemblyLocation
+        assemblyLocation,
+        priceId
       });
     } else {
       const deliveryLocation = {
@@ -116,7 +117,8 @@ function ShopCard({ item, addToCart }) {
         selectedService,
         newPrice,
         serviceDate,
-        deliveryLocation
+        deliveryLocation,
+        priceId
       });
     }
 
@@ -133,6 +135,8 @@ function ShopCard({ item, addToCart }) {
     ? item.variations[selectedVariation].priceId
     : item.priceId;
 
+    console.log("selectedVariation: " + selectedVariation)
+    console.log("priceId: " + priceId)
   return (
     <div className="border p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
       <img
