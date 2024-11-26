@@ -29,7 +29,7 @@ function QuoteDialog({ handleClose, open }) {
 
   const handleSubmit = async (values, {  setSubmitting, resetForm }) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/bookings`, {
+      const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/bookings`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
