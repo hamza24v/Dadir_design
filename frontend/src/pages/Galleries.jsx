@@ -42,7 +42,7 @@ function Galleries({ showPreview }) {
         )}
       </div>
       {showPreview && (
-        <NavLink to="/Galleries" onClick={scrollToTop}>
+        <NavLink to="/galleries" onClick={scrollToTop}>
           <button className="relative mt-8 bg-gradient-to-r from-slate-900 to-cyan-400 hover:scale-105 transition duration-300 text-white font-semibold px-8 py-3 rounded-lg shadow-md">
             {" "}
             View more

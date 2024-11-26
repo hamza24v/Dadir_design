@@ -16,7 +16,7 @@ function Services() {
           <ServiceCard key={index} title={service.title} image={service.image} description={service.description} />
         ))}
       </div>
-      <NavLink to='/Shop' onClick={() => scrollToTop()}>
+      <NavLink to='/shop' onClick={() => scrollToTop()}>
         <button
           className='relative mt-8 bg-gradient-to-r from-slate-900 to-cyan-400 hover:scale-105 transition duration-300 text-white font-semibold px-8 py-3 rounded-lg shadow-md'
           onClick={<Shop />}
