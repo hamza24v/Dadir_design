@@ -1,27 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const { createPaymentIntent } = require("../services/stripeService");
 const { sendConfirmationEmail } = require("../services/emailService");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const { addEvent, authorize } = require("../services/calendarService");
+const { addEvent } = require("../services/calendarService");
+const { authorize } = require("../services/googleService");
 const dayjs = require("dayjs");
 
 router.get("/config", (req, res) => {
   res.send({
     publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
   });
-});
-
-router.post("/create-payment-intent", async (req, res) => {
-  // const { amount } = req.body;
-  try {
-    const paymentIntent = await createPaymentIntent(100);
-    res.send({
-      clientSecret: paymentIntent.client_secret,
-    });
-  } catch (error) {
-    res.status(400).send({ error: error.message });
-  }
 });
 
 router.post("/checkout", express.json("application/json"), async (req, res) => {
@@ -66,7 +54,7 @@ router.post("/checkout", express.json("application/json"), async (req, res) => {
 router.post(
   "/webhook",
   express.raw({ type: "application/json" }),
-  (req, res) => {
+  async (req, res) => {
     const sig = req.headers["stripe-signature"];
     let event;
 
@@ -78,7 +66,7 @@ router.post(
       );
     } catch (err) {
       console.log(`⚠️  Webhook signature verification failed.`, err.message);
-      return res.sendStatus(400);
+      return res.status(400).send(`Webhook error: ${err.message}`);
     }
 
     if (event.type === "checkout.session.completed") {
@@ -90,7 +78,7 @@ router.post(
 
       const services = [];
       Object.keys(session.metadata).forEach((key, index) => {
-        if (key.includes("service_")) {
+        if (key.includes("service_") && session.metadata[`service_${index + 1}_name`] !== undefined ) {
           services.push({
             name: session.metadata[`service_${index + 1}_name`],
             startDateTime: session.metadata[`service_${index + 1}_start`],
@@ -106,12 +94,18 @@ router.post(
 
       authorize()
         .then((auth) => {
-          services.forEach((serviceDetails) => {
-            addEvent(auth, serviceDetails);
-          });
+          
         })
         .catch(console.error);
-      console.log(sendConfirmationEmail(customerEmail, services));
+      try {
+        const auth = await authorize();
+        services.forEach((serviceDetails) => {
+          addEvent(auth, serviceDetails);
+        });
+      } catch(err) {
+        console.error("Error adding events to Google Calendar: ", err.message);
+      }
+      sendConfirmationEmail(services);
     }
 
     res.status(200).json({ received: true });
