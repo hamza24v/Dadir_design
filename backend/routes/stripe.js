@@ -92,11 +92,6 @@ router.post(
         }
       });
 
-      authorize()
-        .then((auth) => {
-          
-        })
-        .catch(console.error);
       try {
         const auth = await authorize();
         services.forEach((serviceDetails) => {
@@ -105,7 +100,7 @@ router.post(
       } catch(err) {
         console.error("Error adding events to Google Calendar: ", err.message);
       }
-      sendConfirmationEmail(services);
+      sendConfirmationEmail(customerEmail, services);
     }
 
     res.status(200).json({ received: true });
