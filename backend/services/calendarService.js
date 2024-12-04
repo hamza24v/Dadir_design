@@ -1,8 +1,22 @@
 const { google } = require("googleapis");
 const dayjs = require("dayjs");
+const fs = require("fs");
+const credentials = require("../config/credentials.json");
 
-async function addEvent(auth, serviceDetails) {
-  const calendar = google.calendar({ version: "v3", auth });
+// Initialize OAuth2 client
+const oauth2Client = new google.auth.OAuth2(
+  credentials.client_id,
+  credentials.client_secret,
+  credentials.redirect_uri
+);
+
+function loadTokens() {
+  const tokens = JSON.parse(fs.readFileSync(process.env.TOKEN_PATH, "utf8"));
+  oauth2Client.setCredentials(tokens);
+}
+
+async function addEvent(serviceDetails) {
+  const calendar = google.calendar({ version: "v3", auth: oauth2Client });
   const event = {
     summary: `${serviceDetails.type} Service Appointment: ${serviceDetails.name}`,
     description: `Customer appointment for: ${serviceDetails.customerName}\nPhone Number: ${serviceDetails.customerPhone}\nEmail: ${serviceDetails.customerEmail}`,
@@ -14,7 +28,6 @@ async function addEvent(auth, serviceDetails) {
       dateTime: serviceDetails.endDateTime,
       timeZone: "America/New_York",
     },
-    attendees: [{ email: serviceDetails.customerEmail }],
     location:
       serviceDetails.type === "Assembly"
         ? serviceDetails.location
@@ -23,7 +36,7 @@ async function addEvent(auth, serviceDetails) {
 
   calendar.events.insert(
     {
-      calendarId: "primary",
+      calendarId: process.env.MAIL_USERNAME,
       resource: event,
     },
     (err, event) => {
@@ -36,24 +49,27 @@ async function addEvent(auth, serviceDetails) {
   );
 }
 
-async function getEvents(auth){
+async function getEvents() {
+  loadTokens();
+  const calendar = google.calendar({ version: "v3", auth: oauth2Client });
+  const startDateTime = dayjs();
+
   try {
-    const calendar = google.calendar({ version: "v3", auth });
-    const startDateTime = dayjs();
     const res = await calendar.events.list({
-      calendarId: "primary",
+      calendarId: process.env.MAIL_USERNAME,
       timeMin: startDateTime.toISOString(),
-      timeMax: startDateTime.add(2, 'month').toISOString(),
+      timeMax: startDateTime.add(2, "month").toISOString(),
       maxResults: 10,
       singleEvents: true,
       orderBy: "startTime",
-    })
+    });
     return res.data.items;
-  } catch(err){
+  } catch (err) {
     console.error("Error fetching appointments:", err);
   }
 }
 
 module.exports = {
-  addEvent, getEvents
+  addEvent,
+  getEvents,
 };

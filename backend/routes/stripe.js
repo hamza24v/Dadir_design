@@ -3,7 +3,6 @@ const router = express.Router();
 const { sendConfirmationEmail } = require("../services/emailService");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { addEvent } = require("../services/calendarService");
-const { authorize } = require("../services/googleService");
 const dayjs = require("dayjs");
 
 router.get("/config", (req, res) => {
@@ -24,9 +23,14 @@ router.post("/checkout", express.json("application/json"), async (req, res) => {
       });
       metadata[`service_${index + 1}_name`] = item.name;
       metadata[`service_${index + 1}_start`] = item.serviceDate;
-      metadata[`service_${index + 1}_end`] = dayjs(item.serviceDate).add(2, 'hours').toISOString();
-      metadata[`service_${index + 1}_type`] = item.selectedService
-      metadata[`service_${index + 1}_location`] = item.selectedService === "Assembly" ? item.assemblyLocation : item.deliveryLocation
+      metadata[`service_${index + 1}_end`] = dayjs(item.serviceDate)
+        .add(2, "hours")
+        .toISOString();
+      metadata[`service_${index + 1}_type`] = item.selectedService;
+      metadata[`service_${index + 1}_location`] =
+        item.selectedService === "Assembly"
+          ? item.assemblyLocation
+          : item.deliveryLocation;
     });
 
     const session = await stripe.checkout.sessions.create({
@@ -78,7 +82,10 @@ router.post(
 
       const services = [];
       Object.keys(session.metadata).forEach((key, index) => {
-        if (key.includes("service_") && session.metadata[`service_${index + 1}_name`] !== undefined ) {
+        if (
+          key.includes("service_") &&
+          session.metadata[`service_${index + 1}_name`] !== undefined
+        ) {
           services.push({
             name: session.metadata[`service_${index + 1}_name`],
             startDateTime: session.metadata[`service_${index + 1}_start`],
@@ -92,14 +99,9 @@ router.post(
         }
       });
 
-      try {
-        const auth = await authorize();
-        services.forEach((serviceDetails) => {
-          addEvent(auth, serviceDetails);
-        });
-      } catch(err) {
-        console.error("Error adding events to Google Calendar: ", err.message);
-      }
+      services.forEach((serviceDetails) => {
+        addEvent(auth, serviceDetails);
+      });
       sendConfirmationEmail(customerEmail, services);
     }
 
