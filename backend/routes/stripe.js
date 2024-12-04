@@ -100,7 +100,7 @@ router.post(
       });
 
       services.forEach((serviceDetails) => {
-        addEvent(auth, serviceDetails);
+        addEvent(serviceDetails);
       });
       sendConfirmationEmail(customerEmail, services);
     }

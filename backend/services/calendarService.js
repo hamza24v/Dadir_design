@@ -1,21 +1,9 @@
-const { google } = require("googleapis");
 const dayjs = require("dayjs");
-const fs = require("fs");
-const credentials = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
-
-
-const oauth2Client = new google.auth.OAuth2(
-  credentials.client_id,
-  credentials.client_secret,
-  credentials.redirect_uri
-);
-
-function loadTokens() {
-  const tokens = JSON.parse(fs.readFileSync(process.env.TOKEN_PATH, "utf8"));
-  oauth2Client.setCredentials(tokens);
-}
+const { oauth2Client, loadTokens } = require("../services/authService")
+const { google } = require("googleapis");
 
 async function addEvent(serviceDetails) {
+  await loadTokens();
   const calendar = google.calendar({ version: "v3", auth: oauth2Client });
   const event = {
     summary: `${serviceDetails.type} Service Appointment: ${serviceDetails.name}`,
@@ -28,6 +16,7 @@ async function addEvent(serviceDetails) {
       dateTime: serviceDetails.endDateTime,
       timeZone: "America/New_York",
     },
+    attendees: [{ email: serviceDetails.customerEmail }],
     location:
       serviceDetails.type === "Assembly"
         ? serviceDetails.location
@@ -36,27 +25,27 @@ async function addEvent(serviceDetails) {
 
   calendar.events.insert(
     {
-      calendarId: process.env.MAIL_USERNAME,
+      calendarId: "primary",
       resource: event,
     },
     (err, event) => {
       if (err) {
         console.error("Error creating calendar event:", err);
       } else {
-        console.log("Event created:", event.data.htmlLink);
+        console.log("Event created:");
       }
     }
   );
 }
 
 async function getEvents() {
-  loadTokens();
+  await loadTokens();
   const calendar = google.calendar({ version: "v3", auth: oauth2Client });
   const startDateTime = dayjs();
 
   try {
     const res = await calendar.events.list({
-      calendarId: process.env.MAIL_USERNAME,
+      calendarId: "primary",
       timeMin: startDateTime.toISOString(),
       timeMax: startDateTime.add(2, "month").toISOString(),
       maxResults: 10,

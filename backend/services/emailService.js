@@ -39,7 +39,6 @@ const sendConfirmationEmail = (customerEmail, services) => {
     if (error) {
       return console.log("Error while sending email:", error);
     }
-    console.log("Email sent:", info.response);
   });
 };
 
