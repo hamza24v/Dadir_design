@@ -1,9 +1,9 @@
 const { google } = require("googleapis");
 const dayjs = require("dayjs");
 const fs = require("fs");
-const credentials = require("../config/credentials.json");
+const credentials = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 
-// Initialize OAuth2 client
+
 const oauth2Client = new google.auth.OAuth2(
   credentials.client_id,
   credentials.client_secret,
