@@ -30,7 +30,7 @@ router.post("/checkout", express.json("application/json"), async (req, res) => {
       metadata[`service_${index + 1}_location`] =
         item.selectedService === "Assembly"
           ? item.assemblyLocation
-          : item.deliveryLocation;
+          : JSON.stringify(item.deliveryLocation);
     });
 
     const session = await stripe.checkout.sessions.create({

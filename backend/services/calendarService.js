@@ -1,13 +1,26 @@
 const dayjs = require("dayjs");
-const { oauth2Client, loadTokens } = require("../services/authService")
+const { oauth2Client, loadTokens } = require("../services/authService");
 const { google } = require("googleapis");
 
 async function addEvent(serviceDetails) {
   await loadTokens();
   const calendar = google.calendar({ version: "v3", auth: oauth2Client });
+
+  let location;
+  if (serviceDetails.type === "Assembly") {
+    location = serviceDetails.location;
+  } else {
+    location = JSON.parse(serviceDetails.location);
+  }
   const event = {
     summary: `${serviceDetails.type} Service Appointment: ${serviceDetails.name}`,
-    description: `Customer appointment for: ${serviceDetails.customerName}\nPhone Number: ${serviceDetails.customerPhone}\nEmail: ${serviceDetails.customerEmail}`,
+    description: `Customer appointment for: ${
+      serviceDetails.customerName
+    }\nPhone Number: ${serviceDetails.customerPhone}\nEmail: ${
+      serviceDetails.customerEmail
+    }\n ${
+      serviceDetails.type === "Delivery" ?? `Drop Off at: ${location.dropOff}`
+    }`,
     start: {
       dateTime: serviceDetails.startDateTime,
       timeZone: "America/New_York",
@@ -17,10 +30,7 @@ async function addEvent(serviceDetails) {
       timeZone: "America/New_York",
     },
     attendees: [{ email: serviceDetails.customerEmail }],
-    location:
-      serviceDetails.type === "Assembly"
-        ? serviceDetails.location
-        : `Pickup: ${serviceDetails.location.pickUp}, Dropoff: ${serviceDetails.location.dropOff}`,
+    location: serviceDetails.type === "Assembly" ? location : location.pickUp,
   };
 
   calendar.events.insert(
@@ -32,7 +42,7 @@ async function addEvent(serviceDetails) {
       if (err) {
         console.error("Error creating calendar event:", err);
       } else {
-        console.log("Event created:");
+        console.log("Event created");
       }
     }
   );
