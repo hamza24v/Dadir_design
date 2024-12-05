@@ -18,16 +18,23 @@ function ShopCard({ item, addToCart }) {
   const [selectedVariation, setSelectedVariation] = useState(defaultVariation);
   const [selectedService, setSelectedService] = useState(defaultService);
   const [serviceDate, setServiceDate] = useState(dayjs());
-  const [availableTimes, setAvailableTimes] = useState([]);
   const [pickupLocation, setPickupLocation] = useState("");
   const [dropoffLocation, setDropoffLocation] = useState("");
   const [assemblyLocation, setAssemblyLocation] = useState("");
+  const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
     const fetchAvailability = async () => {
-      // Placeholder: Assume availability for 9 AM - 5 PM, every hour
-      const times = Array.from({ length: 11 }, (_, i) => i + 8);
-      setAvailableTimes(times);
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_API_URL}/appointments`
+      );
+      const appointments = await response.json();
+
+      const processedAppointments = appointments.map((app) => ({
+        start: dayjs(app.start.dateTime),
+        end: dayjs(app.end.dateTime),
+      }));
+      setAppointments(processedAppointments);
     };
     fetchAvailability();
   }, []);
@@ -229,22 +236,43 @@ function ShopCard({ item, addToCart }) {
         <DateTimePicker
           label="Select Service Date"
           value={serviceDate}
-          onChange={(newDate) => setServiceDate(newDate)}
+          onChange={(newDate) => setServiceDate(newDate.local())}
           minDate={dayjs()}
           disablePast
           shouldDisableTime={(timeValue, clockType) => {
+            let dateTime = serviceDate.clone(); // to avoid mutating state
+
             if (clockType === "hours") {
-              // Disable times on Fridays from 12 PM to 3 PM, and 6-8pm
-              const day = serviceDate.day();
-              if (
-                timeValue < 8 ||
-                timeValue > 17 ||
-                (day === 5 && timeValue >= 12 && timeValue < 15)
-              ) {
+              dateTime = dateTime.hour(timeValue);
+            } else if (clockType === "minutes") {
+              dateTime = dateTime.minute(timeValue);
+            }
+
+            if (dateTime.isBefore(dayjs())) {
+              return true; // Disable past times
+            }
+
+            // disable conflicting times
+            const isUnavailable = appointments.some((app) =>
+              dateTime.isBetween(app.start, app.end, null, "[)")
+            );
+
+            if (isUnavailable) {
+              return true;
+            }
+
+            // disable non working hours
+            if (clockType === "hours") {
+              if (timeValue < 8 || timeValue >= 18) {
                 return true;
               }
-              return false;
+
+              const dayOfWeek = dateTime.day();
+              if (dayOfWeek === 5 && timeValue >= 12 && timeValue < 15) {
+                return true;
+              }
             }
+
             return false;
           }}
           renderInput={(params) => (
