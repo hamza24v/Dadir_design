@@ -236,7 +236,7 @@ function ShopCard({ item, addToCart }) {
         <DateTimePicker
           label="Select Service Date"
           value={serviceDate}
-          onChange={(newDate) => setServiceDate(newDate.local())}
+          onChange={(newDate) => setServiceDate(newDate)}
           minDate={dayjs()}
           disablePast
           shouldDisableTime={(timeValue, clockType) => {
