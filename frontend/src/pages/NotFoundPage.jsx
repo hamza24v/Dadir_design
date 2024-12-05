@@ -8,12 +8,12 @@ const NotFoundPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-b from-blue-100 to-blue-50">
-      <h1 className="text-6xl font-bold text-blue-600 mb-4">404</h1>
+      <h1 className="text-6xl font-bold text-cyan-700 mb-4">404</h1>
       <p className="text-lg text-gray-700 mb-6">Oops! The page you're looking for doesn't exist.</p>
       <Button
         variant="contained"
         startIcon={<HomeIcon />}
-        className="bg-gradient-to-r from-blue-600 to-cyan-400 text-white"
+        className="bg-gradient-to-r from-slate-900 to-cyan-400 text-white"
         onClick={() => navigate('/')}
       >
         Go Home
