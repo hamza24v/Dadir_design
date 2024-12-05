@@ -15,27 +15,32 @@ export const CartProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_APP_API_URL}/services`).then(async (response) => {
-      const data = await response.json();
-      setAllItems(data);
-      setLoading(false);
-    });
+    fetch(`${import.meta.env.VITE_APP_API_URL}/services`).then(
+      async (response) => {
+        const data = await response.json();
+        setAllItems(data);
+        setLoading(false);
+      }
+    );
   }, []);
-
   const checkout = async (items) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_APP_API_URL}/stripe/checkout`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ 
-          items: items.map(({ id, image, oldPrice, services, variations, ...rest}) => rest)
-         }),
-      });
-  
+      const response = await fetch(
+        `${import.meta.env.VITE_APP_API_URL}/stripe/checkout`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            items: items.map(
+              ({ id, image, oldPrice, services, variations, ...rest }) => rest
+            ),
+          }),
+        }
+      );
+
       const data = await response.json();
-  console.log("test")
       if (data.url) {
         window.location.assign(data.url);
       }
@@ -71,7 +76,7 @@ export const CartProvider = ({ children }) => {
           serviceDate,
           deliveryLocation,
           assemblyLocation,
-          priceId
+          priceId,
         },
       ]);
     } else {
@@ -82,7 +87,6 @@ export const CartProvider = ({ children }) => {
       );
     }
   }
-  
 
   function deleteFromCart(id) {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
@@ -117,7 +121,7 @@ export const CartProvider = ({ children }) => {
     getTotalCost,
     allItems,
     loading,
-    checkout
+    checkout,
   };
 
   return (

@@ -14,13 +14,19 @@ async function addEvent(serviceDetails) {
   }
   const event = {
     summary: `${serviceDetails.type} Service Appointment: ${serviceDetails.name}`,
-    description: `Customer appointment for: ${
-      serviceDetails.customerName
-    }\nPhone Number: ${serviceDetails.customerPhone}\nEmail: ${
-      serviceDetails.customerEmail
-    }\n ${
-      serviceDetails.type === "Delivery" ?? `Drop Off at: ${location.dropOff}`
-    }`,
+    description: [
+      `Customer appointment for: ${serviceDetails.customerName}`,
+      `Phone Number: ${serviceDetails.customerPhone}`,
+      `Email: ${serviceDetails.customerEmail}`,
+      serviceDetails.type === "Delivery" && location.dropoff
+        ? `Drop Off at: ${location.dropoff}`
+        : null,
+      serviceDetails.variation !== "all"
+        ? `Variation: ${serviceDetails.variation}`
+        : null,
+    ]
+      .filter(Boolean)
+      .join("\n"),
     start: {
       dateTime: serviceDetails.startDateTime,
       timeZone: "America/New_York",
@@ -41,8 +47,6 @@ async function addEvent(serviceDetails) {
     (err, event) => {
       if (err) {
         console.error("Error creating calendar event:", err);
-      } else {
-        console.log("Event created");
       }
     }
   );

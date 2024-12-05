@@ -27,6 +27,7 @@ router.post("/checkout", express.json("application/json"), async (req, res) => {
         .add(2, "hours")
         .toISOString();
       metadata[`service_${index + 1}_type`] = item.selectedService;
+      metadata[`service_${index + 1}_variation`] = item.selectedVariation
       metadata[`service_${index + 1}_location`] =
         item.selectedService === "Assembly"
           ? item.assemblyLocation
@@ -91,6 +92,7 @@ router.post(
             startDateTime: session.metadata[`service_${index + 1}_start`],
             endDateTime: session.metadata[`service_${index + 1}_end`],
             type: session.metadata[`service_${index + 1}_type`],
+            variation: session.metadata[`service_${index + 1}_variation`],
             location: session.metadata[`service_${index + 1}_location`],
             customerName,
             customerEmail,

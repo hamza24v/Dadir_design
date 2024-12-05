@@ -33,7 +33,10 @@ function ShopCard({ item, addToCart }) {
   }, []);
 
   useEffect(() => {
-    if (selectedService === "Delivery" || selectedService === "Assembly" && window.google) {
+    if (
+      selectedService === "Delivery" ||
+      (selectedService === "Assembly" && window.google)
+    ) {
       const autocompletePickup = new window.google.maps.places.Autocomplete(
         pickupRef.current,
         {
@@ -98,45 +101,44 @@ function ShopCard({ item, addToCart }) {
       return;
     }
 
-    if(selectedService === "Assembly"){
+    if (selectedService === "Assembly") {
       addToCart(item, {
         selectedVariation,
         selectedService,
         newPrice,
         serviceDate,
         assemblyLocation,
-        priceId
+        priceId,
       });
     } else {
       const deliveryLocation = {
-        pickUp: pickUpLocation,
+        pickUp: pickupLocation,
         dropoff: dropoffLocation,
-      }
+      };
       addToCart(item, {
         selectedVariation,
         selectedService,
         newPrice,
         serviceDate,
         deliveryLocation,
-        priceId
+        priceId,
       });
     }
-
-   
   };
 
-  const oldPrice = selectedVariation !== 'all'
-    ? item.variations[selectedVariation].oldPrice
-    : item.oldPrice;
-  const newPrice = selectedVariation !== 'all'
-    ? item.variations[selectedVariation].newPrice
-    : item.newPrice;
-  const priceId = selectedVariation !== 'all'
-    ? item.variations[selectedVariation].priceId
-    : item.priceId;
+  const oldPrice =
+    selectedVariation !== "all"
+      ? item.variations[selectedVariation].oldPrice
+      : item.oldPrice;
+  const newPrice =
+    selectedVariation !== "all"
+      ? item.variations[selectedVariation].newPrice
+      : item.newPrice;
+  const priceId =
+    selectedVariation !== "all"
+      ? item.variations[selectedVariation].priceId
+      : item.priceId;
 
-    console.log("selectedVariation: " + selectedVariation)
-    console.log("priceId: " + priceId)
   return (
     <div className="border p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
       <img
@@ -162,7 +164,7 @@ function ShopCard({ item, addToCart }) {
             label="Variations"
             id="variations-select"
             onChange={handleVariationSelect}
-            value={selectedVariation !== 'all' ? selectedVariation : "None"}
+            value={selectedVariation !== "all" ? selectedVariation : "None"}
           >
             {item?.variations ? (
               Object.entries(item.variations).map(([variation, _], index) => (
@@ -213,14 +215,14 @@ function ShopCard({ item, addToCart }) {
         )}
 
         {selectedService === "Assembly" && (
-            <TextField
-              label="Service Location"
-              fullWidth
-              sx={{ mt: 2 }}
-              value={assemblyLocation}
-              inputRef={serviceRef}
-              onChange={(e) => setAssemblyLocation(e.target.value)}
-            />
+          <TextField
+            label="Service Location"
+            fullWidth
+            sx={{ mt: 2 }}
+            value={assemblyLocation}
+            inputRef={serviceRef}
+            onChange={(e) => setAssemblyLocation(e.target.value)}
+          />
         )}
       </div>
       <div className="mt-4">
