@@ -4,7 +4,7 @@ const { getEvents } = require("../services/calendarService");
 
 router.get("/", async (req, res) => {
   try {
-    const appointments = await getEvents(auth);
+    const appointments = await getEvents();
     res.status(200).json(appointments);
   } catch (err) {
     res.status(500).send("Error authorizing Google Calendar");
