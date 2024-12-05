@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Shop from './pages/Shop/Shop'
 import { CartProvider } from './pages/Shop/CartContext'
 import Completion from './pages/Completion';
+import NotFoundPage from './pages/NotFoundPage'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/shop' element={<Shop />} />
         <Route path='/success' element={<Completion />} />
+        <Route path='/*' element={<NotFoundPage />} />
       </Routes>
       <Footer />
     </CartProvider>
